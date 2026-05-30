@@ -7,18 +7,20 @@ using static UnityEditor.ShaderGraph.Internal.KeywordDependentCollection;
 
 public class Movement : Entity, IJump
 {
+    [SerializeField] private Animator animator;
     [SerializeField] private GameObject bottomPoint;
     [SerializeField] private float secondJumpCD;
     [SerializeField] private float dashCD;
     [SerializeField] private float dashDistance;
     [SerializeField] private float dashSpeed;
     [SerializeField] private float jumpForce;
-    [SerializeField] private int moveSpeed;
+    [SerializeField] private float moveSpeed;
 
 
     private static Action<bool> onDoubleJumped;
 
     private Rigidbody rb;
+    private Vector3 lastPos;
     private bool canCheckMove = true;
     private bool canCheckJump = true;
     private bool canCheckDash = true;
@@ -26,6 +28,7 @@ public class Movement : Entity, IJump
     private bool canDoubleJump = false;
     private bool canJump = false;
     private bool canDash = false;
+    private bool moved = false;
     private bool dashed = false;
     public float JumpForce { get => jumpForce; set => jumpForce = value; }
 
@@ -36,7 +39,13 @@ public class Movement : Entity, IJump
     }
     private void FixedUpdate()
     {
-        if(canCheckMove) Move();
+        if (canCheckMove)
+        {
+            Move();
+            animator.SetFloat("speed", 0);
+            if (moved) animator.SetFloat("speed", moveSpeed);
+
+        }
         if(canCheckJump) JumpLogic();
         if(canCheckDash) Dash();
         CanJumpCheck();
@@ -51,6 +60,12 @@ public class Movement : Entity, IJump
         var moveRight = transform.right * horizontal * moveSpeed * Time.fixedDeltaTime;
         Vector3 move = moveRight + moveStraight;
         rb.MovePosition(rb.position + move);
+        moved = false;
+        if (Vector3.Distance(transform.position, lastPos) > 0.1f)
+        {
+            moved = true;
+            lastPos = transform.position;
+        }
     }
     private void JumpLogic()
     {
@@ -77,6 +92,7 @@ public class Movement : Entity, IJump
         Vector3 jumpVector = new Vector3(0, JumpForce, 0);
         rb.linearVelocity = new Vector3(rb.linearVelocity.x, rb.linearVelocity.y * 0.2f, rb.linearVelocity.z);
         rb.AddForce(jumpVector, ForceMode.Impulse);
+        animator.SetTrigger("jump");
     }
     private void CanJumpCheck()
     {

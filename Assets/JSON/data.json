@@ -1,0 +1,22 @@
+using UnityEngine;
+
+public class data
+{
+	"player":[
+		{
+			"health": 100,
+			"maxHealth": 100,
+			"speed": 5,
+			"jumpForce": 3,
+			"canDash": false,
+			"canDJump": false,
+			"position":[
+				{
+				   	  "x": 0,
+				   	 "y": 0,
+					 "z": 0
+				}
+			]
+		}
+	]
+}
