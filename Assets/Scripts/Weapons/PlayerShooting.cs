@@ -1,11 +1,15 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerShooting : MonoBehaviour
 {
+    [SerializeField] private List<GameObject> weapons;
+
     public static Action<WeaponData> OnPickUpWeapon;
 
+    private Animator animator;
     private WeaponData weaponData;
     private int cartridges;
     private bool hasGun = false;
@@ -15,6 +19,7 @@ public class PlayerShooting : MonoBehaviour
     private void Awake()
     {
         OnPickUpWeapon += PickUpWeapon;
+        animator = gameObject.GetComponent<Animator>();
     }
 
     private void Update()
@@ -62,6 +67,14 @@ public class PlayerShooting : MonoBehaviour
     {
         this.weaponData = weaponData;
         this.cartridges = weaponData.cartridges;
+        foreach (var i in weapons)
+        {
+            if (i.gameObject.name == weaponData.type)
+            {
+                i.gameObject.SetActive(true);
+                animator.SetBool("haveAK", true);
+            }
+        }
         hasGun = true;
     }
     private void OnDestroy()

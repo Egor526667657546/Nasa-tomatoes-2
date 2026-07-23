@@ -45,7 +45,7 @@ public class EnemyNormal : EnemyBasic
         }
         else
         {
-            animator.SetBool("IsWalking", false);
+            animator.SetBool("isWalking", false);
         }
     }
     private void GoTowardsTarget()
@@ -56,7 +56,7 @@ public class EnemyNormal : EnemyBasic
         }
         else
         {
-            animator.SetBool("IsWalking", true);
+            animator.SetBool("isWalking", true);
             agent.SetDestination(target.transform.position);
         }
     }
@@ -80,8 +80,8 @@ public class EnemyNormal : EnemyBasic
     private IEnumerator AnimationTimer()
     {
         canAttack = false;
-        animator.SetBool("IsWalking", false);
-        animator.SetTrigger("Punch");
+        animator.SetBool("isWalking", false);
+        animator.SetTrigger("punch");
         yield return new WaitForSeconds(animationcd);
         Attack(damage);
         StartCoroutine(Timer());

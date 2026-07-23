@@ -7,4 +7,5 @@ public class WeaponData : ScriptableObject
     public float attackSpeed;
     public int cartridges;
     public float reloadSpeed;
+    public string type;
 }
