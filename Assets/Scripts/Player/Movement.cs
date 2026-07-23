@@ -30,6 +30,10 @@ public class Movement : Entity, IJump
     private bool canDash = false;
     private bool moved = false;
     private bool dashed = false;
+
+    private bool jumpPressed;
+    private bool dashPressed;
+
     public float JumpForce { get => jumpForce; set => jumpForce = value; }
 
     private void Start()
@@ -44,13 +48,22 @@ public class Movement : Entity, IJump
             Move();
             animator.SetFloat("speed", 0);
             if (moved) animator.SetFloat("speed", moveSpeed);
-
         }
-        if(canCheckJump) JumpLogic();
-        if(canCheckDash) Dash();
         CanJumpCheck();
         CanDashCheck();
+        if (canCheckJump) JumpLogic();
+        if(canCheckDash) Dash();
     }
+
+    private void Update()
+    {
+        if (Input.GetButtonDown("Jump"))
+            jumpPressed = true;
+
+        if (Input.GetMouseButtonDown(1))
+            dashPressed = true;
+    }
+
     protected override void Move()
     {
         var horizontal = Input.GetAxis("Horizontal");
@@ -61,23 +74,28 @@ public class Movement : Entity, IJump
         Vector3 move = moveRight + moveStraight;
         rb.MovePosition(rb.position + move);
         moved = false;
-        if (Vector3.Distance(transform.position, lastPos) > 0.1f)
+        Vector3 playerPosYNullized = transform.position;
+        playerPosYNullized.y = 0;
+        if (Vector3.Distance(playerPosYNullized, lastPos) > 0.01f)
         {
             moved = true;
-            lastPos = transform.position;
+            lastPos = playerPosYNullized;
+            
         }
     }
     private void JumpLogic()
     {
-        if (Input.GetButtonDown("Jump") && (canJump || canDoubleJump))
+        if (jumpPressed && (canJump || canDoubleJump))
         {
+            jumpPressed = false;
+
             Debug.Log(canJump || canDoubleJump);
             if (canJump)
             {
                 canJump = false;
                 canDoubleJump = false;
-                Jump();
                 StartCoroutine(SecondJumpCD(secondJumpCD));
+                Jump();
             }
             else if (canDoubleJump)
             {
@@ -93,6 +111,7 @@ public class Movement : Entity, IJump
         rb.linearVelocity = new Vector3(rb.linearVelocity.x, rb.linearVelocity.y * 0.2f, rb.linearVelocity.z);
         rb.AddForce(jumpVector, ForceMode.Impulse);
         animator.SetTrigger("jump");
+        animator.SetBool("onLand", false);
     }
     private void CanJumpCheck()
     {
@@ -101,6 +120,7 @@ public class Movement : Entity, IJump
         RaycastHit hit;
         if (Physics.Raycast(raycastDown, out hit, 0.1f))
         {
+            animator.SetBool("onLand", true);
             canJump = true;
             canDoubleJump = true;
         }
@@ -113,8 +133,10 @@ public class Movement : Entity, IJump
    
     private void Dash()
     {
-        if (Input.GetMouseButtonDown(1) && !dashed)
+        if (dashPressed && !dashed)
         {
+            dashPressed = false;
+
             canCheckMove = false;
             canCheckJump = false;
             canCheckDash = false;
@@ -170,6 +192,16 @@ public class Movement : Entity, IJump
         canCheckJump = true;
         canCheckDash = true;
     }
+    public void LockOrNotMovement(bool condition)
+    {
+        canCheckDash = condition;
+        canCheckJump = condition;
+        canCheckMove = condition;
+        //Debug.Log(canCheckDash);
+        //Debug.Log(canCheckJump);
+        //Debug.Log(canCheckMove);
+    }
+
     private IEnumerator DashCD(float coolDown)
     {
         yield return new WaitForSeconds(coolDown);

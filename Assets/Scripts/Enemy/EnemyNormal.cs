@@ -6,19 +6,33 @@ using System.Collections;
 
 public class EnemyNormal : EnemyBasic
 {
+    [SerializeField] private Animator animator;
     [SerializeField] private float attackDistance;
 
     private NavMeshAgent agent;
+    private bool canAttack = true;
+   
 
+    private void Awake()
+    {
+        if (gameObject.TryGetComponent<ObjectSlower>(out ObjectSlower os))
+        {
+            canThink = false;
+        }
+    }
 
     private void Start()
     {
         agent = gameObject.GetComponent<NavMeshAgent>();
+        agent.stoppingDistance = attackDistance;
         health = maxHealth;
     }
     private void Update()
     {
-        LookForTarget();
+        if (canThink)
+        {
+            LookForTarget();
+        }
     }
     private void LookForTarget()
     {
@@ -29,15 +43,20 @@ public class EnemyNormal : EnemyBasic
             target = targets[0].gameObject;
             GoTowardsTarget();
         }
+        else
+        {
+            animator.SetBool("IsWalking", false);
+        }
     }
     private void GoTowardsTarget()
     {
-        if (agent != null && MathF.Abs(Vector3.Distance(gameObject.transform.position, target.transform.position)) <= attackDistance)
+        if (agent != null && MathF.Abs(Vector3.Distance(gameObject.transform.position, target.transform.position)) <= attackDistance && canAttack)
         {
-            StartCoroutine(Timer());
+            StartCoroutine(AnimationTimer());
         }
         else
         {
+            animator.SetBool("IsWalking", true);
             agent.SetDestination(target.transform.position);
         }
     }
@@ -56,12 +75,20 @@ public class EnemyNormal : EnemyBasic
     }
     protected override void Attack(float dmg)
     {
-        //target.TakeDamage(dmg);
+        target.GetComponent<PlayerHealthSystem>().TakeDamage(dmg);
+    }
+    private IEnumerator AnimationTimer()
+    {
+        canAttack = false;
+        animator.SetBool("IsWalking", false);
+        animator.SetTrigger("Punch");
+        yield return new WaitForSeconds(animationcd);
+        Attack(damage);
+        StartCoroutine(Timer());
     }
     private IEnumerator Timer()
     {
-        //animationSignal
         yield return new WaitForSeconds(cd);
-        Attack(damage);
+        canAttack = true;
     }
 }

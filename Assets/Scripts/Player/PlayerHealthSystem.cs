@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class PlayerHealthSystem : MonoBehaviour
@@ -6,13 +7,22 @@ public class PlayerHealthSystem : MonoBehaviour
 
     private float health;
 
+    private void Awake()
+    {
+        health = maxHp;
+        Time.timeScale = 1;
+    }
+
     public void TakeDamage(float dmg)
     {
         health -= dmg;
-        if (health < 0)
+        Debug.Log($"-{dmg} health");
+        Debug.Log($"Player health: {health}");
+        if (health <= 0)
         {
-            Die();
+            UIManager.OnPlayerDie.Invoke();
             health = 0;
+            Die();
         }
     }
     public void Heal(float heal)
@@ -26,6 +36,9 @@ public class PlayerHealthSystem : MonoBehaviour
     }
     private void Die()
     {
-
+        Cursor.lockState = CursorLockMode.Confined;
+        CameraMove.OnPause.Invoke();
+        Time.timeScale = 0;
+        //Destroy(gameObject);
     }
 }

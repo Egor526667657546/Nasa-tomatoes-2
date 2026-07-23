@@ -2,15 +2,14 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
-    [SerializeField] private float speed = 10f;
-    [SerializeField] private float damage;
 
     private Rigidbody rb;
-    private GameObject target;
+    private Vector3 target;
 
+    private float speed;
+    private float damage;
+    private float maxDistance;
     private bool isGoing = false;
-
-    public GameObject Target { get => target; set => target = value; }
 
 
     void Start()
@@ -33,18 +32,25 @@ public class Bullet : MonoBehaviour
     }
     private void Go()
     {
-        Vector3 direction = (target.transform.position - transform.position).normalized;
+        Vector3 direction = (target - transform.position).normalized;
 
         transform.forward = direction;
         rb.linearVelocity = transform.forward * speed;
+        Destroy(gameObject, Vector3.Distance(transform.position, target) / rb.linearVelocity.magnitude);
         isGoing = true;
     }
-    private void OnCollisionEnter(Collision collision)
+    private void OnTriggerEnter(Collider collision)
     {
         if (collision.transform.CompareTag("damagable"))
         {
             collision.gameObject.GetComponent<PlayerHealthSystem>().TakeDamage(damage);
         }
         Destroy(gameObject);
+    }
+    public void Init(Vector3 target, float damage, float speed)
+    {
+        this.target = target;
+        this.damage = damage;
+        this.speed = speed;
     }
 }
