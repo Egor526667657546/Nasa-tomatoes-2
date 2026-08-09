@@ -60,7 +60,7 @@ public class EnemyNormal : EnemyBasic
             agent.SetDestination(target.transform.position);
         }
     }
-    protected override void TakeDamage(float dmg)
+    public override void TakeDamage(float dmg)
     {
         health -= dmg;
         if (health <= 0)

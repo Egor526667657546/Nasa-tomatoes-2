@@ -12,8 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f430c0187bbd9740adcb51ce9be8e85, type: 3}
   m_Name: AK
   m_EditorClassIdentifier: Assembly-CSharp::WeaponData
-  damage: 10
+  damage: 50
+  attackDistance: 100
   attackSpeed: 0.1
-  cartridges: 5
+  cartridges: 30
   reloadSpeed: 1
-  type: AK47
+  type: AK

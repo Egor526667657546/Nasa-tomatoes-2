@@ -6,7 +6,7 @@ using UnityEngine;
 public class PlayerShooting : MonoBehaviour
 {
     [SerializeField] private List<GameObject> weapons;
-
+    [SerializeField] private GameObject gunPoint;
     public static Action<WeaponData> OnPickUpWeapon;
 
     private Animator animator;
@@ -24,28 +24,33 @@ public class PlayerShooting : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetMouseButtonDown(0) && hasGun && canShoot)
+        if (Input.GetMouseButton(0) && hasGun && canShoot)
         {
             Shoot();
         }
     }
     private void Shoot()
     {
+        Debug.Log("Выстрел");
         if (weaponData == null) return;
 
         if (cartridges == 0)
         {
+            canShoot = false;
             StartCoroutine(Reloading());
             return;
         }
-        Ray ray = new Ray(transform.position, transform.forward);
+        animator.SetTrigger("fire");
+        Ray ray = new Ray(gunPoint.transform.position, gunPoint.transform.forward);
         RaycastHit hit;
-        if (Physics.Raycast(ray, out hit))
+        Debug.Log(weaponData.attackDistance);
+        Debug.DrawRay(gunPoint.transform.position, transform.forward * weaponData.attackDistance, Color.red, 2f);
+        if (Physics.Raycast(ray, out hit, weaponData.attackDistance))
         {
-            GameObject possibleEnemy = hit.rigidbody.gameObject;
+            GameObject possibleEnemy = hit.collider.gameObject;
             if (possibleEnemy.CompareTag("Enemy"))
             {
-                //нанесення шкоди ворогу із weaponData;
+                possibleEnemy.GetComponent<EnemyBasic>().TakeDamage(weaponData.damage);
             }
         }
         cartridges--;
@@ -54,9 +59,11 @@ public class PlayerShooting : MonoBehaviour
     }
     private IEnumerator Reloading()
     {
+        Debug.Log("Перезарядка");
         yield return new WaitForSeconds(weaponData.reloadSpeed);
         this.cartridges = weaponData.cartridges;
         canShoot = true;
+        Debug.Log("Перезарядка закончена");
     }
     private IEnumerator AttackDelay()
     {
@@ -65,6 +72,7 @@ public class PlayerShooting : MonoBehaviour
     }
     private void PickUpWeapon(WeaponData weaponData)
     {
+        canShoot = true;
         this.weaponData = weaponData;
         this.cartridges = weaponData.cartridges;
         foreach (var i in weapons)
@@ -72,7 +80,9 @@ public class PlayerShooting : MonoBehaviour
             if (i.gameObject.name == weaponData.type)
             {
                 i.gameObject.SetActive(true);
-                animator.SetBool("haveAK", true);
+                animator.SetBool($"have{weaponData.type}", true);
+                Debug.Log(i.gameObject.activeSelf);
+                Debug.Log(i.gameObject);
             }
         }
         hasGun = true;

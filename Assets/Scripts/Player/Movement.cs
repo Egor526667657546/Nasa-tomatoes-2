@@ -87,7 +87,6 @@ public class Movement : Entity, IJump
     {
         if (jumpPressed && (canJump || canDoubleJump))
         {
-            jumpPressed = false;
 
             Debug.Log(canJump || canDoubleJump);
             if (canJump)
@@ -104,6 +103,7 @@ public class Movement : Entity, IJump
                 Movement.onDoubleJumped.Invoke(canDash);
             }
         }
+        jumpPressed = false;
     }
     public void Jump()
     {
@@ -135,8 +135,6 @@ public class Movement : Entity, IJump
     {
         if (dashPressed && !dashed)
         {
-            dashPressed = false;
-
             canCheckMove = false;
             canCheckJump = false;
             canCheckDash = false;
@@ -150,6 +148,7 @@ public class Movement : Entity, IJump
             canDash = false;
             dashed = true;
         }
+        dashPressed = false;
     }
     private void CanDashCheck()
     {
@@ -197,9 +196,6 @@ public class Movement : Entity, IJump
         canCheckDash = condition;
         canCheckJump = condition;
         canCheckMove = condition;
-        //Debug.Log(canCheckDash);
-        //Debug.Log(canCheckJump);
-        //Debug.Log(canCheckMove);
     }
 
     private IEnumerator DashCD(float coolDown)

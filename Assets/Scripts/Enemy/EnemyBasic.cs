@@ -14,7 +14,7 @@ public abstract class EnemyBasic : MonoBehaviour
     protected Collider[] targets;
     protected GameObject target;
 
-    protected abstract void TakeDamage(float dmg);
+    public abstract void TakeDamage(float dmg);
     protected abstract void Die();
     protected abstract void Attack(float dmg);
 
