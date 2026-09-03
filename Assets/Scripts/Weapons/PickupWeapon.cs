@@ -6,7 +6,7 @@ public class PickupWeapon : MonoBehaviour
     {
         if(other.gameObject.TryGetComponent<WeaponItem>(out WeaponItem weaponItem))
         {
-            PlayerShooting.OnPickUpWeapon(weaponItem.WeaponData);
+            Inventory.OnPickUpWeapon(weaponItem.WeaponData);
             Destroy(other.gameObject);
         }
     }

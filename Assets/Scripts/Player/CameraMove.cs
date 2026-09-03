@@ -11,7 +11,13 @@ public class CameraMove : MonoBehaviour
     public static Action OnPause;
 
     private bool canRotate = true;
+    private float camRotCeiling = -30f;
+    private float camRotFloor = 55f;
     private float axisCamera;
+
+    public float CamRotCeiling { get => camRotCeiling; set => camRotCeiling = value; }
+    public float CamRotFloor { get => camRotFloor; set => camRotFloor = value; }
+    public bool CanRotate { get => canRotate; set => canRotate = value; }
 
     private void Start()
     {
@@ -20,7 +26,7 @@ public class CameraMove : MonoBehaviour
     }
     void Update()
     {
-        if (canRotate)
+        if (CanRotate)
         {
             RotateCamera();
         }
@@ -33,14 +39,14 @@ public class CameraMove : MonoBehaviour
 
         body.Rotate(Vector3.up, X);
         axisCamera += -Y;
-        axisCamera = Mathf.Clamp(axisCamera, -30, 55);
+        axisCamera = Mathf.Clamp(axisCamera, CamRotCeiling, CamRotFloor);
         transform.localRotation = Quaternion.Euler(axisCamera, 0, 0);
         //transform.Rotate(Vector3.right, Y);
 
     }
     private void ChangeRotation()
     {
-        canRotate = !canRotate;
+        CanRotate = !CanRotate;
     }
     private void OnDestroy()
     {

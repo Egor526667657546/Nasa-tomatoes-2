@@ -5,13 +5,15 @@ using UnityEngine;
 public class AnimManager : MonoBehaviour
 {
     [SerializeField] private SpawnEnemies spawnEnemies;
-    [SerializeField] private Movement playerMovement;
+    [SerializeField] private Movement1 playerMovement;
 
     [SerializeField] private Camera mainCamera;
     [SerializeField] private List<Camera> cameras;
     [SerializeField] private List<EnemyBasic> typesOfEnemies;
     [SerializeField] private List<Transform> aimDots;
 
+    [SerializeField] private GameObject crosshair;
+    [SerializeField] private GameObject circleCrosshair;
     [SerializeField] private float slowMultiplier;
     [SerializeField] private float animationTime;
 
@@ -31,6 +33,8 @@ public class AnimManager : MonoBehaviour
     }
     private IEnumerator PreAnim()
     {
+        crosshair.SetActive(false);
+        circleCrosshair.SetActive(false);
         playerMovement.LockOrNotMovement(false);
         firstAnim = true;
         mainCamera.gameObject.SetActive(false);
@@ -46,6 +50,8 @@ public class AnimManager : MonoBehaviour
             if (lastAnim)
             {
                 Debug.Log("unlocked?");
+                crosshair.SetActive(true);
+                circleCrosshair.SetActive(true);
                 mainCamera.gameObject.SetActive(true);
                 playerMovement.LockOrNotMovement(true);
             }

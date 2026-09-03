@@ -60,8 +60,10 @@ public class Movement : Entity, IJump
         if (Input.GetButtonDown("Jump"))
             jumpPressed = true;
 
-        if (Input.GetMouseButtonDown(1))
+        if (Input.GetKeyDown(KeyCode.LeftShift))
+        {
             dashPressed = true;
+        }
     }
 
     protected override void Move()
@@ -88,7 +90,6 @@ public class Movement : Entity, IJump
         if (jumpPressed && (canJump || canDoubleJump))
         {
 
-            Debug.Log(canJump || canDoubleJump);
             if (canJump)
             {
                 canJump = false;
