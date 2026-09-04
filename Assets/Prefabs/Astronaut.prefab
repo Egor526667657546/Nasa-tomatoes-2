@@ -528,6 +528,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerShooting
   weapons:
   - {fileID: 444667815602220963}
+  gunPoint: {fileID: 0}
 --- !u!4 &2910446501419257784 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8276371802700277684, guid: 18c55cff215464d47b2f61b5dcc62c38, type: 3}
@@ -612,7 +613,9 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 6808072994748137667, guid: e0986b77d545cb34ca758a148258e523, type: 3}
+    - {fileID: 1664986507268187612, guid: e0986b77d545cb34ca758a148258e523, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e0986b77d545cb34ca758a148258e523, type: 3}
