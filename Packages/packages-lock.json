@@ -1,11 +1,19 @@
 {
   "dependencies": {
+<<<<<<< HEAD
     "com.autodesk.fbx": {
       "version": "5.1.3",
       "depth": 1,
       "source": "registry",
       "dependencies": {},
       "url": "https://packages.unity.com"
+=======
+    "com.unity.2d.sprite": {
+      "version": "1.0.0",
+      "depth": 0,
+      "source": "builtin",
+      "dependencies": {}
+>>>>>>> main
     },
     "com.unity.ai.navigation": {
       "version": "2.0.9",
@@ -111,6 +119,18 @@
       "dependencies": {},
       "url": "https://packages.unity.com"
     },
+<<<<<<< HEAD
+=======
+    "com.unity.postprocessing": {
+      "version": "3.5.0",
+      "depth": 0,
+      "source": "registry",
+      "dependencies": {
+        "com.unity.modules.physics": "1.0.0"
+      },
+      "url": "https://packages.unity.com"
+    },
+>>>>>>> main
     "com.unity.probuilder": {
       "version": "6.0.9",
       "depth": 0,
