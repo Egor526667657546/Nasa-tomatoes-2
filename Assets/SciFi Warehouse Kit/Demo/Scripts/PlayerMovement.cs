@@ -50,7 +50,6 @@ public class PlayerMovement : MonoBehaviour
              nextFootstep -= Time.deltaTime;
              if (nextFootstep <= 0) 
                 {
-                 GetComponent<AudioSource>().PlayOneShot(footStepSound, 0.7f);
                  nextFootstep += footStepDelay;
                 }
              }

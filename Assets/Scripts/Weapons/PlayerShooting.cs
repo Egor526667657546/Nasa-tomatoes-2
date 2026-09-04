@@ -45,7 +45,7 @@ public class PlayerShooting : MonoBehaviour
 
     private void Update()
     {
-        Time.timeScale = 0.1f;
+        //Time.timeScale = 0.1f;
         isAiming = false;
         if (Input.GetKeyDown(KeyCode.R) && hasGun)
         {
