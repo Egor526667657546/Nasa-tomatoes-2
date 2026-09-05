@@ -24,15 +24,9 @@ public class PlayerShooting : MonoBehaviour
     private bool canShoot = false;
 
     private bool canCount = false;
-    private float newTime = 0f; 
-
-    private float curTime = 0f;
-    private float shotTime = 0.03f;
+    private float shotCooldownTimer = 0f;
 
     public bool HasGun { get => hasGun; set => hasGun = value; }
-
-    private int shootCalled = 0;
-    private int FireCalled = 0;
 
     public List<GameObject> PlayerWeapons { get => playerWeapons; set => playerWeapons = value; }
     public List<string> Types { get => types; set => types = value; }
@@ -77,7 +71,7 @@ public class PlayerShooting : MonoBehaviour
         }
         animator.SetBool("isAiming", isAiming);
 
-       // Debug.Log($"can shoot: {canShoot}");
+        // Debug.Log($"can shoot: {canShoot}");
 
 
 
@@ -96,41 +90,49 @@ public class PlayerShooting : MonoBehaviour
 
 
 
-        if (Input.GetMouseButton(0) && hasGun && isAiming && canShoot)
+        //if (Input.GetMouseButton(0) && hasGun && isAiming && canShoot)
+        //{
+        //    Shoot();
+        //}
+        //else if (Input.GetMouseButtonUp(0) || !hasGun || !isAiming)
+        //{
+        //    StartCoroutine(DelayBeforeQuitting());
+        //}
+        //if (Input.GetMouseButtonDown(0) && hasGun && isAiming)
+        //{
+        //    newTime = 1;
+        //}
+        //if (Input.GetMouseButton(0) && hasGun && isAiming)
+        //{
+        //    if (newTime >= 0.1f)
+        //    {
+        //        NormalShooting();
+        //    }
+        //}
+        //if (canCount)
+        //{
+        //    Waiting();
+        //}
+        if (shotCooldownTimer > 0)
         {
-            Shoot();
+            shotCooldownTimer -= Time.deltaTime;
         }
-        else if (Input.GetMouseButtonUp(0) || !hasGun || !isAiming)
+
+        if (hasGun && isAiming)
         {
-            StartCoroutine(DelayBeforeQuitting());
-        }
-
-
-
-        if (canCount)
-        {
-            Waiting();
-        }
-
-
-
-
-
-
-
-
-
-
-
-
-
-        if (animator.GetBool("isShooting"))
-        {
-            curTime += Time.deltaTime;
-            if (curTime >= shotTime)
+            if (Input.GetMouseButton(0) && shotCooldownTimer <= 0)
             {
-                curTime = 0f;
+                NormalShooting();
             }
+            if (Input.GetMouseButtonUp(0))
+            {
+                animator.SetBool("isShooting", false);
+            }
+        }
+        else
+        {
+
+            animator.SetBool("isShooting", false);
         }
     }
     //private void Shoot()
@@ -160,40 +162,77 @@ public class PlayerShooting : MonoBehaviour
     //    cartridges--;
     //    StartCoroutine(AttackDelay());
     //}
-    private void Shoot()
-    {
-        //Debug.Log("Shoot called");
-        shootCalled += 1;
-        //Debug.Log($"For: {shootCalled} time");
-        Debug.Log($"cartriges: {cartridges - 1}");
-        canShoot = false;
-      //  Debug.Log($"can shoot: {canShoot}");
-        if (weaponData == null)
-            return;
+    //private void Shoot()
+    //{
+    //    //Debug.Log("Shoot called");
+    //    shootCalled += 1;
+    //    //Debug.Log($"For: {shootCalled} time");
+    //    Debug.Log($"cartriges: {cartridges - 1}");
+    //    canShoot = false;
+    //  //  Debug.Log($"can shoot: {canShoot}");
+    //    if (weaponData == null)
+    //        return;
 
-        if (cartridges == 0)
+    //    if (cartridges == 0)
+    //    {
+    //        animator.SetBool("isShooting", false);
+    //        return;
+    //    }
+
+    //    animator.SetBool("isShooting", true);
+    //    Fire();
+    ////    Debug.Log($"animator.GetBool(isShooting): {animator.GetBool("isShooting")}");
+
+    //    StartCoroutine(AttackAnimDelay());
+    //    StartCoroutine(AttackDelay());
+    //}
+    //private void NormalShooting()
+    //{
+    //    newTime = 0f;
+    //    canCount = true;
+
+    //    if (weaponData == null)
+    //        return;
+
+    //    if (cartridges == 0)
+    //    {
+    //        animator.SetBool("isShooting", false);
+    //        return;
+    //    }
+
+    //    Debug.Log($"cartriges: {cartridges - 1}");
+    //    animator.SetBool("isShooting", true);
+    //    Fire();
+    //    StartCoroutine(AttackAnimDelay());
+    //}
+    private void NormalShooting()
+    {
+        if (weaponData == null) return;
+
+        if (cartridges <= 0)
         {
             animator.SetBool("isShooting", false);
             return;
         }
 
-        animator.SetBool("isShooting", true);
-        Fire();
-    //    Debug.Log($"animator.GetBool(isShooting): {animator.GetBool("isShooting")}");
+        shotCooldownTimer = weaponData.attackSpeed;
 
-        StartCoroutine(AttackAnimDelay());
-        StartCoroutine(AttackDelay());
+        Debug.Log($"cartridges: {cartridges - 1}");
+
+        animator.SetBool("isShooting", true);
+
+        Fire();
     }
     public void Fire()
     {
       //  Debug.Log($"Fire called");
-        FireCalled += 1;
+        //FireCalled += 1;
       //  Debug.Log($"Fire called for {FireCalled} time");
         if (weaponData == null)
             return;
 
         Ray ray = new Ray(gunPoint.transform.position, gunPoint.transform.forward);
-
+        Debug.DrawRay(gunPoint.transform.position, gunPoint.transform.forward, Color.red, 2f);
         RaycastHit hit;
 
         Debug.DrawRay(gunPoint.transform.position, gunPoint.transform.forward, Color.red, 2f);
@@ -223,11 +262,11 @@ public class PlayerShooting : MonoBehaviour
         isReloading = false;
 
     }
-    private IEnumerator AttackAnimDelay()
-    {
-        yield return new WaitForSeconds(shotTime);
-        animator.SetBool("isShooting", false);
-    }
+    //private IEnumerator AttackAnimDelay()
+    //{
+    //    yield return new WaitForSeconds(shotTime);
+    //    animator.SetBool("isShooting", false);
+    //}
     private IEnumerator AttackDelay()
     {
       //  Debug.Log($"started coroutine AttackDelay");
@@ -236,30 +275,29 @@ public class PlayerShooting : MonoBehaviour
         canCount = true;
         yield return new WaitForSeconds(weaponData.attackSpeed);
         canCount = false;
-        Debug.Log($"timer ended. time waited:{newTime}");
         animator.SetBool("isShooting", false);
       //  Debug.Log($"animator.GetBool(isShooting): {animator.GetBool("isShooting")}");
 
         canShoot = true;
     }
-    private void Waiting()
-    {
-        newTime += Time.deltaTime;
-        Debug.Log($"time waited: {newTime}");
-    }
-    private IEnumerator DelayBeforeQuitting()
-    {
-        yield return new WaitForSeconds(shotTime - curTime);
-        animator.SetBool("isShooting", false);
-        curTime = 0f;
-    }
+    //private void Waiting()
+    //{
+    //    newTime += Time.deltaTime;
+    //    //Debug.Log($"time waited: {newTime}");
+    //}
+    //private IEnumerator DelayBeforeQuitting()
+    //{
+    //    yield return new WaitForSeconds(shotTime - curTime);
+    //    animator.SetBool("isShooting", false);
+    //    curTime = 0f;
+    //}
     public void EquipWeapon(WeaponData weaponData)
     {
         hasGun = true;
         canShoot = true;
         this.weaponData = weaponData;
         this.cartridges = weaponData.cartridges;
-        foreach (var i in playerWeapons)
+        foreach (var i in PlayerWeapons)
         {
             if (i.gameObject.name == weaponData.idName)
             {

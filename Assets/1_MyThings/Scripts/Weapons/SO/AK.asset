@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::WeaponData
   damage: 50
   attackDistance: 100
-  attackSpeed: 0.1
+  attackSpeed: 0.067
   cartridges: 30
   reloadSpeed: 2
   idName: AK
