@@ -39,7 +39,7 @@ public class PlayerShooting : MonoBehaviour
 
     private void Update()
     {
-        //Time.timeScale = 0.1f;
+        Time.timeScale = 0.4f;
         isAiming = false;
         if (Input.GetKeyDown(KeyCode.R) && hasGun)
         {
@@ -120,13 +120,13 @@ public class PlayerShooting : MonoBehaviour
 
         if (hasGun && isAiming)
         {
-            if (Input.GetMouseButton(0) && shotCooldownTimer <= 0)
-            {
-                NormalShooting();
-            }
             if (Input.GetMouseButtonUp(0))
             {
                 animator.SetBool("isShooting", false);
+            }
+            else if (Input.GetMouseButton(0) && shotCooldownTimer <= 0)
+            {
+                NormalShooting();
             }
         }
         else

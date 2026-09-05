@@ -205,7 +205,7 @@ public class Movement1 : Entity, IJump
     }
     public void Jump()
     {
-        Vector3 jumpVector = new Vector3(0, JumpForce, 0);
+        Vector3 jumpVector = new Vector3(0, JumpForce * transform.localScale.x, 0);
         rb.linearVelocity = new Vector3(rb.linearVelocity.x, rb.linearVelocity.y * 0.2f, rb.linearVelocity.z);
         rb.AddForce(jumpVector, ForceMode.Impulse);
         animator.SetTrigger("jump");
@@ -215,6 +215,7 @@ public class Movement1 : Entity, IJump
     {
         Vector3 bottomPos = new Vector3(bottomPoint.transform.position.x, bottomPoint.transform.position.y, bottomPoint.transform.position.z);
         Ray raycastDown = new Ray(bottomPos, Vector3.down);
+        Debug.DrawRay(bottomPos, Vector3.down, Color.red, 0.1f);
         RaycastHit hit;
         if (Physics.Raycast(raycastDown, out hit, 0.1f))
         {

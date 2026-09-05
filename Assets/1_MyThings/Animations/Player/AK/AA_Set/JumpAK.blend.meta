@@ -34,7 +34,7 @@ ModelImporter:
       name: JumpAKSet
       takeName: Scene
       internalID: -623603649343465320
-      firstFrame: 1
+      firstFrame: 0.9
       lastFrame: 23
       wrapMode: 0
       orientationOffsetY: 0
