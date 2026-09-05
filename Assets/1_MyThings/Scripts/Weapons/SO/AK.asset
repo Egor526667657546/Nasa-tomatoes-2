@@ -16,6 +16,6 @@ MonoBehaviour:
   attackDistance: 100
   attackSpeed: 0.1
   cartridges: 30
-  reloadSpeed: 3.3
+  reloadSpeed: 2
   idName: AK
   type: Rifle
