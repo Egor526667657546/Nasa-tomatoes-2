@@ -50,7 +50,7 @@ private bool playerNear = false;
 
     private IEnumerator UnlockAfterTime()
     {
-        yield return new WaitForSeconds(6f);
+        yield return new WaitForSeconds(13f);
         isMoving = false;
 
         if (playerNear)
