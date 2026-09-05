@@ -12,6 +12,7 @@ public class AnimManager : MonoBehaviour
     [SerializeField] private List<EnemyBasic> typesOfEnemies;
     [SerializeField] private List<Transform> aimDots;
 
+    [SerializeField] private GameObject aimCrosshair;
     [SerializeField] private GameObject crosshair;
     [SerializeField] private GameObject circleCrosshair;
     [SerializeField] private float slowMultiplier;
@@ -33,6 +34,7 @@ public class AnimManager : MonoBehaviour
     }
     private IEnumerator PreAnim()
     {
+        aimCrosshair.SetActive(false);
         crosshair.SetActive(false);
         circleCrosshair.SetActive(false);
         playerMovement.LockOrNotMovement(false);
@@ -50,7 +52,6 @@ public class AnimManager : MonoBehaviour
             if (lastAnim)
             {
                 Debug.Log("unlocked?");
-                crosshair.SetActive(true);
                 circleCrosshair.SetActive(true);
                 mainCamera.gameObject.SetActive(true);
                 playerMovement.LockOrNotMovement(true);

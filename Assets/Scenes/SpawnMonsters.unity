@@ -7798,8 +7798,9 @@ MonoBehaviour:
   - {fileID: 1401106467}
   - {fileID: 876585911}
   - {fileID: 926517441}
-  crosshair: {fileID: 0}
-  circleCrosshair: {fileID: 0}
+  aimCrosshair: {fileID: 1310375028}
+  crosshair: {fileID: 522915283}
+  circleCrosshair: {fileID: 1562049499}
   slowMultiplier: 43
   animationTime: 0
 --- !u!4 &1959508285
@@ -8611,6 +8612,10 @@ PrefabInstance:
     - target: {fileID: 8976068944069414164, guid: 0c81b7a2145a51c4b85456c32e64eb40, type: 3}
       propertyPath: m_Name
       value: Geroy
+      objectReference: {fileID: 0}
+    - target: {fileID: 8976068944069414164, guid: 0c81b7a2145a51c4b85456c32e64eb40, type: 3}
+      propertyPath: m_Layer
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 8985441453230159277, guid: 0c81b7a2145a51c4b85456c32e64eb40, type: 3}
       propertyPath: m_Enabled
