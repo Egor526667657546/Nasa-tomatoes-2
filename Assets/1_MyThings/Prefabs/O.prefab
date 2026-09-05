@@ -2228,7 +2228,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a1c48f953d87f04aaf2925ec0a4f91d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ExplosionEffect
-  explosion: {fileID: 6922214003687747118}
+  playerShooting: {fileID: 0}
+  explosions: []
 --- !u!1 &9071751722622377259
 GameObject:
   m_ObjectHideFlags: 0
@@ -2564,11 +2565,6 @@ PrefabInstance:
 --- !u!4 &2930095487741470250 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3062813619596934096, guid: 7a12b40fb78f3694ea3ba5830db032b4, type: 3}
-  m_PrefabInstance: {fileID: 155522140471533050}
-  m_PrefabAsset: {fileID: 0}
---- !u!198 &6922214003687747118 stripped
-ParticleSystem:
-  m_CorrespondingSourceObject: {fileID: 7077444635568206804, guid: 7a12b40fb78f3694ea3ba5830db032b4, type: 3}
   m_PrefabInstance: {fileID: 155522140471533050}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1191037438644852850
