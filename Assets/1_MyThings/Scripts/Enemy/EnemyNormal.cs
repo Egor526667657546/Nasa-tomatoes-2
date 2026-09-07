@@ -1,6 +1,5 @@
 using UnityEngine;
 using System;
-using System.Collections.Generic;
 using UnityEngine.AI;
 using System.Collections;
 
@@ -11,10 +10,13 @@ public class EnemyNormal : EnemyBasic
 
     private NavMeshAgent agent;
     private bool canAttack = true;
-   
+
+    private AnimManager animManager;
 
     private void Awake()
     {
+        animManager = FindFirstObjectByType<AnimManager>();
+
         if (gameObject.TryGetComponent<ObjectSlower>(out ObjectSlower os))
         {
             canThink = false;
@@ -27,6 +29,7 @@ public class EnemyNormal : EnemyBasic
         agent.stoppingDistance = attackDistance;
         health = maxHealth;
     }
+
     private void Update()
     {
         if (canThink)
@@ -34,9 +37,14 @@ public class EnemyNormal : EnemyBasic
             LookForTarget();
         }
     }
+
     private void LookForTarget()
     {
-        targets = Physics.OverlapSphere(transform.position, agringArea, targetLayer);
+        targets = Physics.OverlapSphere(
+            transform.position,
+            agringArea,
+            targetLayer
+        );
 
         if (targets.Length > 0)
         {
@@ -48,9 +56,15 @@ public class EnemyNormal : EnemyBasic
             animator.SetBool("isWalking", false);
         }
     }
+
     private void GoTowardsTarget()
     {
-        if (agent != null && MathF.Abs(Vector3.Distance(gameObject.transform.position, target.transform.position)) <= attackDistance && canAttack)
+        if (agent != null &&
+            MathF.Abs(Vector3.Distance(
+                gameObject.transform.position,
+                target.transform.position
+            )) <= attackDistance &&
+            canAttack)
         {
             StartCoroutine(AnimationTimer());
         }
@@ -60,35 +74,55 @@ public class EnemyNormal : EnemyBasic
             agent.SetDestination(target.transform.position);
         }
     }
+
     public override void TakeDamage(float dmg)
     {
         health -= dmg;
+
         if (health <= 0)
         {
-            Die();
             health = 0;
+            Die();
         }
     }
+
     protected override void Die()
     {
+        if (animManager != null)
+        {
+            animManager.EnemyDied();
+        }
+        else
+        {
+            Debug.LogError("AnimManager не найден!");
+        }
+
         Destroy(gameObject);
     }
+
     protected override void Attack(float dmg)
     {
         target.GetComponent<PlayerHealthSystem>().TakeDamage(dmg);
     }
+
     private IEnumerator AnimationTimer()
     {
         canAttack = false;
+
         animator.SetBool("isWalking", false);
         animator.SetTrigger("punch");
+
         yield return new WaitForSeconds(animationcd);
+
         Attack(damage);
+
         StartCoroutine(Timer());
     }
+
     private IEnumerator Timer()
     {
         yield return new WaitForSeconds(cd);
+
         canAttack = true;
     }
 }

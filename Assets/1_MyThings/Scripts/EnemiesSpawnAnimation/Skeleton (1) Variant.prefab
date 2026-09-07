@@ -562,7 +562,7 @@ MonoBehaviour:
     m_Bits: 8
   maxHealth: 100
   damage: 10
-  agringArea: 10
+  agringArea: 35
   animationcd: 1
   cd: 1
   animator: {fileID: 1050031814414568880}
