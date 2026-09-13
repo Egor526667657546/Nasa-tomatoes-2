@@ -119,7 +119,7 @@ public class PlayerShooting : MonoBehaviour
             {
                 if (Input.GetMouseButton(0) && shotCooldownTimer <= 0 && !isReloading)
                     RifleShooting();
-                else if (Input.GetMouseButtonUp(0))
+                else if (Input.GetMouseButtonUp(0) || movement.MovementType == 2)
                     StartCoroutine(DelayBeforeQuitting(false));
             }
             else if (weaponData.type == "Pistol")
@@ -396,7 +396,7 @@ public class PlayerShooting : MonoBehaviour
         //Ray ray = new Ray(gunPoint.transform.position, finalDirection);
         Quaternion spreadRot = spread.CalculateSpread(movement.MovementType); // тоже локальный оффсет, Euler(y, x, 0)
         Vector2 sprayAngles = weaponRecoil.GetSpray();
-        Quaternion recoilRot = Quaternion.Euler(sprayAngles.y, sprayAngles.x, 0);
+        Quaternion recoilRot = Quaternion.Euler(-sprayAngles.y, sprayAngles.x, 0);
 
         Vector3 finalDirection = Camera.main.transform.rotation * recoilRot * spreadRot * Vector3.forward;
         Ray ray = new Ray(gunPoint.transform.position, finalDirection);

@@ -2,33 +2,35 @@ using UnityEngine;
 
 public class WeaponRecoil : MonoBehaviour
 {
-    [SerializeField] private float recoilTimeout = 0.15f;
+    [SerializeField] private float recoilTimeout = 0.133f;
 
     [Header("Spray")]
     [SerializeField]
     private Vector2[] sprayPattern = new Vector2[]
     {
-        new Vector2(0f, 0f),   // 1-€ пул€ чуть выше
-        new Vector2(0f, 6f),   // 2-€ еще выше
-        new Vector2(-1f, 7f),  // 3-€ уходит влево и вверх
-        new Vector2(1f, 7.5f), // 4-€ уходит вправо
-        new Vector2(2f, 8f)    // 5-€ еще правее
+        new Vector2(0f, 0f),
+        new Vector2(0f, 6f),
+        new Vector2(-1f, 7f),
+        new Vector2(1f, 7.5f),
+        new Vector2(2f, 8f)
     };
 
+    //private int shotCount = 0;
+    //private float recoilTimer = 0.15f;
     private int shotCount = 0;
-    private float recoilTimer = 0f;
+    private float lastShotTime = 0;
 
-    private void Update()
-    {
-        if (recoilTimer > 0)
-        {
-            recoilTimer -= Time.deltaTime;
-            if (recoilTimer <= 0)
-            {
-                shotCount = 0;
-            }
-        }
-    }
+    //private void Update()
+    //{
+    //    if (recoilTimer > 0)
+    //    {
+    //        recoilTimer -= Time.deltaTime;
+    //        if (recoilTimer <= 0)
+    //        {
+    //            shotCount = 0;
+    //        }
+    //    }
+    //}
 
     //public Quaternion GetSpray()
     //{
@@ -88,9 +90,34 @@ public class WeaponRecoil : MonoBehaviour
     //    //return Quaternion.Euler(-ySpread, xSpread, 0);
     //    //return Quaternion.Euler(ySpread, xSpread, 0);
     //}
+    //public Vector2 GetSpray()
+    //{
+    //    recoilTimer = recoilTimeout;
+
+    //    Vector2 result = Vector2.zero;
+    //    if (sprayPattern.Length > 0)
+    //    {
+    //        int index = Mathf.Min(shotCount, sprayPattern.Length - 1);
+    //        result = sprayPattern[index] + new Vector2(Random.Range(-0.1f, 0.1f), Random.Range(-0.1f, 0.1f));
+    //    }
+
+    //    shotCount++;
+    //    return result; // x = горизонталь(yaw), y = вертикаль(pitch) Ч фиксируем это как единый стандарт
+    //}
+    private void Update()
+    {
+        // тикает каждый кадр Ќ≈«ј¬»—»ћќ от стрельбы Ч
+        // сбрасывает паттерн, если давно не стрел€ли
+        if (shotCount > 0 && Time.time - lastShotTime > recoilTimeout)
+        {
+            shotCount = 0;
+        }
+    }
+
     public Vector2 GetSpray()
     {
-        recoilTimer = recoilTimeout;
+        // здесь сброс больше не нужен Ч этим теперь занимаетс€ Update()
+        lastShotTime = Time.time;
 
         Vector2 result = Vector2.zero;
         if (sprayPattern.Length > 0)
@@ -100,7 +127,7 @@ public class WeaponRecoil : MonoBehaviour
         }
 
         shotCount++;
-        return result; // x = горизонталь(yaw), y = вертикаль(pitch) Ч фиксируем это как единый стандарт
+        return result;
     }
     public Vector2 GetCurrentSprayAngles()
     {

@@ -5,7 +5,7 @@ public class Spread : MonoBehaviour
     [Header("Idle")]
     [SerializeField] private float baseIdleSpread = 0f;
     [SerializeField] private float maxIdleSpread = 10f;
-    [SerializeField] private float idleSpreadPerShot = 1.5f;
+    [SerializeField] private float idleSpreadPerShot = 1f;
 
     [Header("Move")]
     [SerializeField] private float baseMoveSpread = 4f;
@@ -19,7 +19,7 @@ public class Spread : MonoBehaviour
 
     [Header("Restore")]
     [SerializeField] private float restoreSpeed = 8f;
-    [SerializeField] private float restoreDelay = 0.15f;
+    [SerializeField] private float restoreDelay = 0.133f;
 
 
     private float currentIdleSpread;

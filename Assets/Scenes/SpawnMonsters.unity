@@ -10443,7 +10443,7 @@ MonoBehaviour:
   maxJumpSpread: 25
   jumpSpreadPerShot: 6
   restoreSpeed: 5
-  restoreDelay: 0.15
+  restoreDelay: 0.1333
 --- !u!114 &2039878731
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10456,18 +10456,38 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 23ba89a971f2a2d43a4f3ea63b44d2f3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::WeaponRecoil
-  recoilTimeout: 0.15
+  recoilTimeout: 0.1333
   sprayPattern:
   - {x: 0, y: 0}
-  - {x: 0, y: 1}
   - {x: 0, y: 2}
   - {x: 0, y: 3}
   - {x: 0, y: 4}
   - {x: 0, y: 5}
   - {x: 0, y: 6}
+  - {x: 1, y: 7}
+  - {x: 2, y: 8}
+  - {x: 3, y: 8}
+  - {x: 2, y: 7}
+  - {x: 1, y: 6}
   - {x: 0, y: 7}
+  - {x: -1, y: 8}
+  - {x: -2, y: 8}
+  - {x: -3, y: 8}
+  - {x: -2, y: 7}
+  - {x: -1, y: 6}
+  - {x: 0, y: 7}
+  - {x: 1, y: 6}
+  - {x: 0.5, y: 7}
   - {x: 0, y: 8}
-  - {x: 0, y: 9}
+  - {x: -0.5, y: 8}
+  - {x: -1.5, y: 9}
+  - {x: -1.5, y: 8}
+  - {x: -2, y: 7}
+  - {x: -1.5, y: 6}
+  - {x: -1, y: 7}
+  - {x: -1, y: 9}
+  - {x: 0, y: 8}
+  - {x: 0, y: 6}
 --- !u!1 &2107078716
 GameObject:
   m_ObjectHideFlags: 0
