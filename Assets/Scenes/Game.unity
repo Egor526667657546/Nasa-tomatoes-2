@@ -167179,6 +167179,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 762380492481631229, guid: 52c51744944b30b4395badb88a68a18b, type: 3}
   m_PrefabInstance: {fileID: 1468085141}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1468378140 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2334944381794166805, guid: 2d3431791e41d59429050eb3df9bb37d, type: 3}
+  m_PrefabInstance: {fileID: 1131149435}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b8d447e113b7534dae72386e0639d19, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UIRegister
 --- !u!1 &1473199094
 GameObject:
   m_ObjectHideFlags: 0
@@ -171478,6 +171489,17 @@ Transform:
   m_Children: []
   m_Father: {fileID: 115419871}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1614100230 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4408411867773574150, guid: 2d3431791e41d59429050eb3df9bb37d, type: 3}
+  m_PrefabInstance: {fileID: 1131149435}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b8d447e113b7534dae72386e0639d19, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UIRegister
 --- !u!1 &1620057489
 GameObject:
   m_ObjectHideFlags: 0
@@ -178798,6 +178820,22 @@ PrefabInstance:
       propertyPath: weaponPanel
       value: 
       objectReference: {fileID: 1187499749}
+    - target: {fileID: 1960953799657114817, guid: 0c81b7a2145a51c4b85456c32e64eb40, type: 3}
+      propertyPath: uiRegisters.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1960953799657114817, guid: 0c81b7a2145a51c4b85456c32e64eb40, type: 3}
+      propertyPath: 'uiRegisters.Array.data[0]'
+      value: 
+      objectReference: {fileID: 1614100230}
+    - target: {fileID: 1960953799657114817, guid: 0c81b7a2145a51c4b85456c32e64eb40, type: 3}
+      propertyPath: 'uiRegisters.Array.data[1]'
+      value: 
+      objectReference: {fileID: 1468378140}
+    - target: {fileID: 1960953799657114817, guid: 0c81b7a2145a51c4b85456c32e64eb40, type: 3}
+      propertyPath: 'uiRegisters.Array.data[2]'
+      value: 
+      objectReference: {fileID: 2026610957}
     - target: {fileID: 2123907737159393171, guid: 0c81b7a2145a51c4b85456c32e64eb40, type: 3}
       propertyPath: m_Layer
       value: 3
@@ -179027,13 +179065,29 @@ PrefabInstance:
       value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 7376500743176853927, guid: 0c81b7a2145a51c4b85456c32e64eb40, type: 3}
+      propertyPath: movement
+      value: 
+      objectReference: {fileID: 1900337835}
+    - target: {fileID: 7376500743176853927, guid: 0c81b7a2145a51c4b85456c32e64eb40, type: 3}
       propertyPath: UIManager
+      value: 
+      objectReference: {fileID: 2029711657}
+    - target: {fileID: 7376500743176853927, guid: 0c81b7a2145a51c4b85456c32e64eb40, type: 3}
+      propertyPath: inventory
+      value: 
+      objectReference: {fileID: 1900337837}
+    - target: {fileID: 7376500743176853927, guid: 0c81b7a2145a51c4b85456c32e64eb40, type: 3}
+      propertyPath: uiManager
       value: 
       objectReference: {fileID: 2029711657}
     - target: {fileID: 7376500743176853927, guid: 0c81b7a2145a51c4b85456c32e64eb40, type: 3}
       propertyPath: cameraMove
       value: 
       objectReference: {fileID: 1900337836}
+    - target: {fileID: 7376500743176853927, guid: 0c81b7a2145a51c4b85456c32e64eb40, type: 3}
+      propertyPath: crosshairImage
+      value: 
+      objectReference: {fileID: 849083542}
     - target: {fileID: 7711387377932143824, guid: 0c81b7a2145a51c4b85456c32e64eb40, type: 3}
       propertyPath: m_Layer
       value: 3
@@ -190031,6 +190085,17 @@ Transform:
   m_Children: []
   m_Father: {fileID: 115419871}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2026610957 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7768230459316561436, guid: 2d3431791e41d59429050eb3df9bb37d, type: 3}
+  m_PrefabInstance: {fileID: 1131149435}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b8d447e113b7534dae72386e0639d19, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UIRegister
 --- !u!1 &2026865886
 GameObject:
   m_ObjectHideFlags: 0
