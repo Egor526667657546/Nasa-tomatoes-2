@@ -63,30 +63,44 @@ public class WeaponRecoil : MonoBehaviour
     //    int index = Mathf.Min(shotCount, sprayPattern.Length - 1);
     //    return sprayPattern[index];
     //}
-    public void GetSpray()
+    //public void GetSpray()
+    //{
+    //    recoilTimer = recoilTimeout;
+
+    //    float xSpread = 0f;
+    //    float ySpread = 0f;
+
+    //    if (sprayPattern.Length > 0)
+    //    {
+    //        // Ѕерем индекс текущей пули (если зажали дольше массива Ч зацикливаем последние точки)
+    //        int index = Mathf.Min(shotCount, sprayPattern.Length - 1);
+
+    //        // ‘иксированный увод из рисунка + капелька случайности, чтобы не было лазера
+    //        xSpread = sprayPattern[index].x + Random.Range(-0.1f, 0.1f);
+    //        ySpread = sprayPattern[index].y + Random.Range(-0.1f, 0.1f);
+    //    }
+
+    //    shotCount++;
+
+    //    Debug.Log($"ѕатрон є{shotCount}. ”вод пули в градусах: X = {xSpread}, Y = {ySpread}");
+
+    //    //return Quaternion.Euler(ySpread, xSpread, 0);
+    //    //return Quaternion.Euler(-ySpread, xSpread, 0);
+    //    //return Quaternion.Euler(ySpread, xSpread, 0);
+    //}
+    public Vector2 GetSpray()
     {
         recoilTimer = recoilTimeout;
 
-        float xSpread = 0f;
-        float ySpread = 0f;
-
+        Vector2 result = Vector2.zero;
         if (sprayPattern.Length > 0)
         {
-            // Ѕерем индекс текущей пули (если зажали дольше массива Ч зацикливаем последние точки)
             int index = Mathf.Min(shotCount, sprayPattern.Length - 1);
-
-            // ‘иксированный увод из рисунка + капелька случайности, чтобы не было лазера
-            xSpread = sprayPattern[index].x + Random.Range(-0.1f, 0.1f);
-            ySpread = sprayPattern[index].y + Random.Range(-0.1f, 0.1f);
+            result = sprayPattern[index] + new Vector2(Random.Range(-0.1f, 0.1f), Random.Range(-0.1f, 0.1f));
         }
 
         shotCount++;
-
-        Debug.Log($"ѕатрон є{shotCount}. ”вод пули в градусах: X = {xSpread}, Y = {ySpread}");
-
-        //return Quaternion.Euler(ySpread, xSpread, 0);
-        //return Quaternion.Euler(-ySpread, xSpread, 0);
-        //return Quaternion.Euler(ySpread, xSpread, 0);
+        return result; // x = горизонталь(yaw), y = вертикаль(pitch) Ч фиксируем это как единый стандарт
     }
     public Vector2 GetCurrentSprayAngles()
     {

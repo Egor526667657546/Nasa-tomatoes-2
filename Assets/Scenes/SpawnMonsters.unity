@@ -4542,6 +4542,10 @@ PrefabInstance:
       propertyPath: damage
       value: 15
       objectReference: {fileID: 0}
+    - target: {fileID: 6491309501747862987, guid: fd863134a22df0a458c28da9c8650430, type: 3}
+      propertyPath: agringArea
+      value: 10
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

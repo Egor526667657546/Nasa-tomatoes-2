@@ -29,26 +29,42 @@ public class CrosshairFollow : MonoBehaviour
 
     //    rectTransform.anchoredPosition = Vector2.Lerp(rectTransform.anchoredPosition, targetPosition, Time.deltaTime * smoothSpeed);
     //}
+    //private void Update()
+    //{
+    //    if (weaponRecoil == null || playerCamera == null) return;
+
+    //    Vector2 sprayAngles = weaponRecoil.GetCurrentSprayAngles();
+
+    //    // 1. Строим вектор направления пули в 3D (точно так же, как в скрипте стрельбы)
+    //    Quaternion sprayRot = Quaternion.Euler(sprayAngles.y, sprayAngles.x, 0);
+    //    Vector3 targetDirection = sprayRot * playerCamera.transform.forward;
+
+    //    // 2. Находим виртуальную точку в мире на расстоянии, например, 10 метров перед камерой
+    //    Vector3 worldPoint = playerCamera.transform.position + (targetDirection * 10f);
+
+    //    // 3. Переводим эту 3D точку в пиксели на экране
+    //    Vector3 screenPoint = playerCamera.WorldToScreenPoint(worldPoint);
+
+    //    // 4. Корректируем позицию под Canvas (вычитаем половину экрана, так как у UI центр в 0,0)
+    //    Vector2 targetPos = new Vector2(screenPoint.x - (Screen.width / 2f), screenPoint.y - (Screen.height / 2f));
+
+    //    // 5. Плавно двигаем прицел в эту точку
+    //    rectTransform.anchoredPosition = Vector2.Lerp(rectTransform.anchoredPosition, targetPos, Time.deltaTime * smoothSpeed);
+    //}
     private void Update()
     {
-        if (weaponRecoil == null || playerCamera == null) return;
-
         Vector2 sprayAngles = weaponRecoil.GetCurrentSprayAngles();
-
-        // 1. Строим вектор направления пули в 3D (точно так же, как в скрипте стрельбы)
-        Quaternion sprayRot = Quaternion.Euler(sprayAngles.y, sprayAngles.x, 0);
-        Vector3 targetDirection = sprayRot * playerCamera.transform.forward;
-
-        // 2. Находим виртуальную точку в мире на расстоянии, например, 10 метров перед камерой
-        Vector3 worldPoint = playerCamera.transform.position + (targetDirection * 10f);
-
-        // 3. Переводим эту 3D точку в пиксели на экране
+        //Quaternion rot = Quaternion.Euler(sprayAngles.y, sprayAngles.x, 0);
+        //Vector3 dir = rot * playerCamera.transform.forward;
+        //Vector3 worldPoint = playerCamera.transform.position + dir * 10f;
+        //Vector3 screenPoint = playerCamera.WorldToScreenPoint(worldPoint);
+        //Vector2 targetPos = new Vector2(screenPoint.x - Screen.width / 2f, screenPoint.y - Screen.height / 2f);
+        //rectTransform.anchoredPosition = Vector2.Lerp(rectTransform.anchoredPosition, targetPos, Time.deltaTime * smoothSpeed);
+        Quaternion offsetRot = Quaternion.Euler(-sprayAngles.y, sprayAngles.x, 0);
+        Vector3 targetDirection = playerCamera.transform.rotation * offsetRot * Vector3.forward;
+        Vector3 worldPoint = playerCamera.transform.position + targetDirection * 10f;
         Vector3 screenPoint = playerCamera.WorldToScreenPoint(worldPoint);
-
-        // 4. Корректируем позицию под Canvas (вычитаем половину экрана, так как у UI центр в 0,0)
-        Vector2 targetPos = new Vector2(screenPoint.x - (Screen.width / 2f), screenPoint.y - (Screen.height / 2f));
-
-        // 5. Плавно двигаем прицел в эту точку
+        Vector2 targetPos = new Vector2(screenPoint.x - Screen.width / 2f, screenPoint.y - Screen.height / 2f);
         rectTransform.anchoredPosition = Vector2.Lerp(rectTransform.anchoredPosition, targetPos, Time.deltaTime * smoothSpeed);
     }
 }

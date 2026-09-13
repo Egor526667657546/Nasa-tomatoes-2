@@ -66,16 +66,12 @@ public class Spread : MonoBehaviour
                 xSpread = Random.Range(-currentIdleSpread, currentIdleSpread);
                 ySpread = Random.Range(-currentIdleSpread, currentIdleSpread);
 
-                spreadRotation = Quaternion.Euler(xSpread, ySpread, 0);
-
                 currentIdleSpread = Mathf.Min(currentIdleSpread + idleSpreadPerShot, maxIdleSpread);
                 break;
 
             case 1:
                 xSpread = Random.Range(-currentMoveSpread, currentMoveSpread);
                 ySpread = Random.Range(-currentMoveSpread, currentMoveSpread);
-
-                spreadRotation = Quaternion.Euler(xSpread, ySpread, 0);
 
                 currentMoveSpread = Mathf.Min(currentMoveSpread + moveSpreadPerShot, maxMoveSpread);
                 break;
@@ -84,8 +80,6 @@ public class Spread : MonoBehaviour
                 xSpread = Random.Range(-currentJumpSpread, currentJumpSpread);
                 ySpread = Random.Range(-currentJumpSpread, currentJumpSpread);
 
-                spreadRotation = Quaternion.Euler(xSpread, ySpread, 0);
-
                 currentJumpSpread = Mathf.Min(currentJumpSpread + jumpSpreadPerShot, maxJumpSpread);
                 break;
 
@@ -93,7 +87,7 @@ public class Spread : MonoBehaviour
                 Debug.Log("bug");
                 break;
         }
-
+        spreadRotation = Quaternion.Euler(ySpread, xSpread, 0);
         //Debug.Log($"Текущий режим: {movementType}. Углы разброса в градусах: X = {xSpread}, Y = {ySpread}");
         return spreadRotation;
     }

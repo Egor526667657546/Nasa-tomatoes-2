@@ -374,17 +374,32 @@ public class PlayerShooting : MonoBehaviour
         if (weaponData == null)
             return;
 
-        Quaternion spreadRotation = spread.CalculateSpread(movement.MovementType);
+        //Quaternion spreadRotation = spread.CalculateSpread(movement.MovementType);
 
-        weaponRecoil.GetSpray();
+        //weaponRecoil.GetSpray();
 
-        Vector3 crosshairScreenPos = RectTransformUtility.WorldToScreenPoint(null, crosshairImage.rectTransform.position);
+        //Vector3 crosshairScreenPos = RectTransformUtility.WorldToScreenPoint(null, crosshairImage.rectTransform.position);
 
-        Ray ray = Camera.main.ScreenPointToRay(crosshairScreenPos);
+        //Ray ray = Camera.main.ScreenPointToRay(crosshairScreenPos);
 
-        Vector3 finalDirection = spreadRotation * ray.direction;
+        //Vector3 finalDirection = spreadRotation * ray.direction;
 
-        ray = new Ray(gunPoint.transform.position, finalDirection);
+        //ray = new Ray(gunPoint.transform.position, finalDirection);
+
+        //Quaternion spreadRot = spread.CalculateSpread(movement.MovementType); // тоже привести к (pitch=y, yaw=x)!
+        //Vector2 sprayAngles = weaponRecoil.GetSpray();
+        //Quaternion recoilRot = Quaternion.Euler(sprayAngles.y, sprayAngles.x, 0);
+
+        //Vector3 baseDirection = Camera.main.transform.forward;
+        //Vector3 finalDirection = recoilRot * spreadRot * baseDirection;
+
+        //Ray ray = new Ray(gunPoint.transform.position, finalDirection);
+        Quaternion spreadRot = spread.CalculateSpread(movement.MovementType); // тоже локальный оффсет, Euler(y, x, 0)
+        Vector2 sprayAngles = weaponRecoil.GetSpray();
+        Quaternion recoilRot = Quaternion.Euler(sprayAngles.y, sprayAngles.x, 0);
+
+        Vector3 finalDirection = Camera.main.transform.rotation * recoilRot * spreadRot * Vector3.forward;
+        Ray ray = new Ray(gunPoint.transform.position, finalDirection);
 
         RaycastHit hit;
 
