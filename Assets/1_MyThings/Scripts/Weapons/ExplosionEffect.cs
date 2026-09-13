@@ -3,19 +3,16 @@ using UnityEngine;
 
 public class ExplosionEffect : MonoBehaviour
 {
-    [SerializeField] private PlayerShooting playerShooting;
     [SerializeField] private List<ParticleSystem> explosions;
 
     public void PlayExplosion()
     {
-        int count = 0;
-        foreach (var i in explosions)
+        foreach (ParticleSystem explosion in explosions)
         {
-            if (i.gameObject.activeSelf)
+            if (explosion != null)
             {
-                explosions[count].Play();
+                explosion.Play();
             }
-            count++;
         }
     }
 }

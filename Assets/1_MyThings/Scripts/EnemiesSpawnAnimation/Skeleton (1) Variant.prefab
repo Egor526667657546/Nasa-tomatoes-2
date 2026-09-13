@@ -405,6 +405,18 @@ PrefabInstance:
       value: 1.6707244
       objectReference: {fileID: 0}
     - target: {fileID: 8189179709687727534, guid: 4c67ed6c086451b4db54ac4d24b626bb, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8189179709687727534, guid: 4c67ed6c086451b4db54ac4d24b626bb, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8189179709687727534, guid: 4c67ed6c086451b4db54ac4d24b626bb, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8189179709687727534, guid: 4c67ed6c086451b4db54ac4d24b626bb, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
@@ -550,11 +562,11 @@ MonoBehaviour:
     m_Bits: 8
   maxHealth: 100
   damage: 10
-  agringArea: 10
+  agringArea: 35
   animationcd: 1
   cd: 1
   animator: {fileID: 1050031814414568880}
-  attackDistance: 3
+  attackDistance: 4
 --- !u!195 &2002624226441772155
 NavMeshAgent:
   m_ObjectHideFlags: 0
