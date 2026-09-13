@@ -11,13 +11,17 @@ public class Inventory : MonoBehaviour
     [SerializeField] private GameObject laserImageRight;
     [SerializeField] private GameObject laserImageDown;
     [SerializeField] private GameObject pistolImage;
+    [SerializeField] private GameObject paperImage;
     private WeaponData weaponUp; //pistolet
     private WeaponData weaponRight; //rifle (AK47 or Laser)
     private WeaponData weaponDown; //rifle2
+    private WeaponData weaponLeft; //something else
 
     private bool haveWeapon = false;
     private bool rightTaken = false;
     private bool downTaken = false;
+
+    private bool dontReg = false;
     public static Action<WeaponData> OnPickUpWeapon;
 
     private void Awake()
@@ -71,6 +75,12 @@ public class Inventory : MonoBehaviour
             weaponUp = weapon;
             pistolImage.SetActive(true);
         }
+        else if (weapon.type == "Thing")
+        {
+            dontReg = true;
+            weaponLeft = weapon;
+            paperImage.SetActive(true);
+        }
 
         playerShooting.Types.Clear();
 
@@ -89,12 +99,13 @@ public class Inventory : MonoBehaviour
             playerShooting.Types.Add(weaponDown.type);
         }
 
-        if (!haveWeapon)
+        if (!haveWeapon && !dontReg)
         {
             UIManager.ChangeCrosshairs(0, 1);
             haveWeapon = true;
             playerShooting.EquipWeapon(weapon);
         }
+        dontReg = true;
     }
 
     public void ChangeWeapon(int number)
