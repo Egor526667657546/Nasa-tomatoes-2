@@ -566,7 +566,7 @@ MonoBehaviour:
   animationcd: 1
   cd: 1
   animator: {fileID: 1050031814414568880}
-  attackDistance: 3
+  attackDistance: 4
 --- !u!195 &2002624226441772155
 NavMeshAgent:
   m_ObjectHideFlags: 0

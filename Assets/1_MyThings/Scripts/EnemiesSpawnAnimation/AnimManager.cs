@@ -5,11 +5,14 @@ using TMPro;
 
 public class AnimManager : MonoBehaviour
 {
+    public static AnimManager ActiveManager;
+
     [SerializeField] private SpawnEnemies spawnEnemies;
     [SerializeField] private Movement1 playerMovement;
 
     [SerializeField] private Camera mainCamera;
     [SerializeField] private List<Camera> cameras;
+
     [SerializeField] private List<EnemyBasic> typesOfEnemies;
     [SerializeField] private List<Transform> aimDots;
 
@@ -22,11 +25,15 @@ public class AnimManager : MonoBehaviour
 
     [SerializeField] private TMP_Text enemiesText;
 
-    // Дверь
-    [SerializeField] private Animator doorAnimator;
+    [SerializeField] private List<Animator> doorAnimators;
 
-    // Текст "Уровень пройден"
     [SerializeField] private GameObject levelCompleteText;
+
+    [SerializeField] private ItemSpawner itemSpawner;
+
+    [SerializeField] private Camera itemCamera;
+
+    [SerializeField] private float itemCameraTime = 5f;
 
     private List<EnemyBasic> spawnedEnemies = new List<EnemyBasic>();
 
@@ -47,11 +54,22 @@ public class AnimManager : MonoBehaviour
             levelCompleteText.SetActive(false);
         }
 
+        if (itemCamera != null)
+        {
+            itemCamera.gameObject.SetActive(false);
+        }
+
         UpdateEnemiesText();
     }
 
     public void StartAnim()
     {
+        ActiveManager = this;
+
+        firstAnim = true;
+        lastAnim = false;
+        levelCompleted = false;
+
         StartCoroutine(PreAnim());
     }
 
@@ -62,10 +80,6 @@ public class AnimManager : MonoBehaviour
         circleCrosshair.SetActive(false);
 
         playerMovement.LockOrNotMovement(false);
-
-        firstAnim = true;
-        lastAnim = false;
-        levelCompleted = false;
 
         mainCamera.gameObject.SetActive(false);
 
@@ -85,7 +99,9 @@ public class AnimManager : MonoBehaviour
             if (lastAnim)
             {
                 circleCrosshair.SetActive(true);
+
                 mainCamera.gameObject.SetActive(true);
+
                 playerMovement.LockOrNotMovement(true);
             }
         }
@@ -104,11 +120,19 @@ public class AnimManager : MonoBehaviour
 
                 if (lastAnim)
                 {
-                    spawnEnemies.Spawn(aimDots[i], enemyToSpawn, 0);
+                    spawnEnemies.Spawn(
+                        aimDots[i],
+                        enemyToSpawn,
+                        0
+                    );
                 }
                 else
                 {
-                    spawnEnemies.Spawn(aimDots[i], enemyToSpawn, time);
+                    spawnEnemies.Spawn(
+                        aimDots[i],
+                        enemyToSpawn,
+                        time
+                    );
                 }
 
                 spawnedEnemies.Add(enemyToSpawn);
@@ -122,15 +146,28 @@ public class AnimManager : MonoBehaviour
         {
             for (int i = 0; i < aimDots.Count; i++)
             {
+                if (i >= spawnedEnemies.Count)
+                {
+                    continue;
+                }
+
                 EnemyBasic enemyToSpawn = spawnedEnemies[i];
 
                 if (lastAnim)
                 {
-                    spawnEnemies.Spawn(aimDots[i], enemyToSpawn, 0);
+                    spawnEnemies.Spawn(
+                        aimDots[i],
+                        enemyToSpawn,
+                        0
+                    );
                 }
                 else
                 {
-                    spawnEnemies.Spawn(aimDots[i], enemyToSpawn, time);
+                    spawnEnemies.Spawn(
+                        aimDots[i],
+                        enemyToSpawn,
+                        time
+                    );
                 }
             }
         }
@@ -140,6 +177,11 @@ public class AnimManager : MonoBehaviour
 
     public void EnemyDied()
     {
+        if (ActiveManager != this)
+        {
+            return;
+        }
+
         aliveEnemies--;
 
         if (aliveEnemies < 0)
@@ -149,7 +191,12 @@ public class AnimManager : MonoBehaviour
 
         UpdateEnemiesText();
 
-        Debug.Log("Враг умер! Осталось: " + aliveEnemies);
+        Debug.Log(
+            "Враг умер. " +
+            gameObject.name +
+            ". Осталось: " +
+            aliveEnemies
+        );
 
         if (aliveEnemies == 0 && !levelCompleted)
         {
@@ -161,16 +208,60 @@ public class AnimManager : MonoBehaviour
 
     private void LevelComplete()
     {
-        Debug.Log("WIN!");
+        Debug.Log(
+            "УРОВЕНЬ ПРОЙДЕН: " +
+            gameObject.name
+        );
 
-        if (doorAnimator != null)
+        foreach (Animator doorAnimator in doorAnimators)
         {
-            doorAnimator.SetTrigger("Open");
+            if (doorAnimator != null)
+            {
+                doorAnimator.SetTrigger("Open");
+            }
         }
 
         if (levelCompleteText != null)
         {
             levelCompleteText.SetActive(true);
+        }
+
+        if (itemSpawner != null)
+        {
+            itemSpawner.SpawnItem();
+        }
+
+        if (itemCamera != null)
+        {
+            StartCoroutine(ShowItemCamera());
+        }
+    }
+
+    private IEnumerator ShowItemCamera()
+    {
+
+        if (mainCamera != null)
+        {
+            mainCamera.gameObject.SetActive(false);
+        }
+
+        foreach (Camera cam in cameras)
+        {
+            if (cam != null)
+            {
+                cam.gameObject.SetActive(false);
+            }
+        }
+
+        itemCamera.gameObject.SetActive(true);
+
+        yield return new WaitForSeconds(itemCameraTime);
+
+        itemCamera.gameObject.SetActive(false);
+
+        if (mainCamera != null)
+        {
+            mainCamera.gameObject.SetActive(true);
         }
     }
 
@@ -178,7 +269,9 @@ public class AnimManager : MonoBehaviour
     {
         if (enemiesText != null)
         {
-            enemiesText.text = "Enemy: " + aliveEnemies;
+            enemiesText.text =
+                "Enemy: " +
+                aliveEnemies;
         }
     }
 }

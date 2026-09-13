@@ -11,12 +11,8 @@ public class EnemyNormal : EnemyBasic
     private NavMeshAgent agent;
     private bool canAttack = true;
 
-    private AnimManager animManager;
-
     private void Awake()
     {
-        animManager = FindFirstObjectByType<AnimManager>();
-
         if (gameObject.TryGetComponent<ObjectSlower>(out ObjectSlower os))
         {
             canThink = false;
@@ -26,7 +22,9 @@ public class EnemyNormal : EnemyBasic
     private void Start()
     {
         agent = gameObject.GetComponent<NavMeshAgent>();
+
         agent.stoppingDistance = attackDistance;
+
         health = maxHealth;
     }
 
@@ -49,6 +47,7 @@ public class EnemyNormal : EnemyBasic
         if (targets.Length > 0)
         {
             target = targets[0].gameObject;
+
             GoTowardsTarget();
         }
         else
@@ -59,19 +58,26 @@ public class EnemyNormal : EnemyBasic
 
     private void GoTowardsTarget()
     {
-        if (agent != null &&
-            MathF.Abs(Vector3.Distance(
-                gameObject.transform.position,
-                target.transform.position
-            )) <= attackDistance &&
-            canAttack)
+        if (
+            agent != null &&
+            MathF.Abs(
+                Vector3.Distance(
+                    gameObject.transform.position,
+                    target.transform.position
+                )
+            ) <= attackDistance &&
+            canAttack
+        )
         {
             StartCoroutine(AnimationTimer());
         }
         else
         {
             animator.SetBool("isWalking", true);
-            agent.SetDestination(target.transform.position);
+
+            agent.SetDestination(
+                target.transform.position
+            );
         }
     }
 
@@ -82,19 +88,16 @@ public class EnemyNormal : EnemyBasic
         if (health <= 0)
         {
             health = 0;
+
             Die();
         }
     }
 
     protected override void Die()
     {
-        if (animManager != null)
+        if (AnimManager.ActiveManager != null)
         {
-            animManager.EnemyDied();
-        }
-        else
-        {
-            Debug.LogError("AnimManager не найден!");
+            AnimManager.ActiveManager.EnemyDied();
         }
 
         Destroy(gameObject);
@@ -102,7 +105,9 @@ public class EnemyNormal : EnemyBasic
 
     protected override void Attack(float dmg)
     {
-        target.GetComponent<PlayerHealthSystem>().TakeDamage(dmg);
+        target
+            .GetComponent<PlayerHealthSystem>()
+            .TakeDamage(dmg);
     }
 
     private IEnumerator AnimationTimer()
@@ -110,6 +115,7 @@ public class EnemyNormal : EnemyBasic
         canAttack = false;
 
         animator.SetBool("isWalking", false);
+
         animator.SetTrigger("punch");
 
         yield return new WaitForSeconds(animationcd);
