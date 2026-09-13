@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::WeaponData
   damage: 10
   attackDistance: 10
-  attackSpeed: 0.1
+  attackSpeed: 0.134
   cartridges: 50
   reloadSpeed: 1
   idName: Laser

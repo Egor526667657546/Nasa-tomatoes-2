@@ -186,7 +186,7 @@ Transform:
   m_GameObject: {fileID: 581311685340351990}
   serializedVersion: 2
   m_LocalRotation: {x: 0.52101254, y: -0.25568283, z: -0.15439972, w: 0.7995831}
-  m_LocalPosition: {x: 0.3966006, y: 0.8648202, z: -0.13035421}
+  m_LocalPosition: {x: 0.3966006, y: 0.8648202, z: -0.1303542}
   m_LocalScale: {x: 1.4999995, y: 1.4999992, z: 1.4999993}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1456,14 +1456,14 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6813759705074719642}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.0583, y: 1.944, z: 0.2216}
+  m_LocalRotation: {x: 0.50000036, y: -0.49999964, z: -0.49999964, w: 0.50000036}
+  m_LocalPosition: {x: -0.22159952, y: -0.058300324, z: 0.87744856}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1813759144754242914}
   - {fileID: 2363826530956055738}
-  m_Father: {fileID: 1462047356564891667}
+  m_Father: {fileID: 8507217901012910801}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!20 &217055172878777590
 Camera:
@@ -2034,7 +2034,6 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 3352417469218850227}
   - {fileID: 8507217901012910801}
   - {fileID: 2951162817973975346}
   - {fileID: 1014824246018435345}
@@ -2089,7 +2088,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 112
   m_CollisionDetection: 0
 --- !u!65 &6693730052897769526
 BoxCollider:
@@ -2169,7 +2168,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4de5d315788c05a4ca10204cf9e4a571, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerShooting
-  UIManager: {fileID: 0}
+  uiManager: {fileID: 0}
   inventory: {fileID: 0}
   cameraMove: {fileID: 0}
   playerWeapons:
@@ -2229,7 +2228,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ExplosionEffect
   playerShooting: {fileID: 0}
-  explosions: []
+  explosions:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
 --- !u!1 &9071751722622377259
 GameObject:
   m_ObjectHideFlags: 0
@@ -2291,6 +2293,7 @@ Transform:
   m_LocalScale: {x: 0.99999994, y: 0.99999994, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 3352417469218850227}
   - {fileID: 9190619669185005647}
   m_Father: {fileID: 1462047356564891667}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

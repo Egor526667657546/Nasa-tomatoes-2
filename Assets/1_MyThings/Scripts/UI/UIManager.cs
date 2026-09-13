@@ -9,13 +9,22 @@ using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
+    [Header("General")]
     [SerializeField] private YouDiedScaler scaler;
     [SerializeField] private GameObject defPanel;
     [SerializeField] private GameObject deadPanel;
     [SerializeField] private float textSpawnDelay;
 
+    [Header("Crosshairs")]
     [SerializeField] private List<Image> crosshairs;
 
+    [Header("Ammo")]
+    [SerializeField] private CanvasGroup ammoIm;
+    [SerializeField] private CanvasGroup ammoCircle;
+    [SerializeField] private CanvasGroup ammoCircleBack;
+    [SerializeField] private TextMeshProUGUI ammoT;
+
+    [Header("Dead screen")]
     [SerializeField] private GameObject restartButton;
     [SerializeField] private TextMeshProUGUI youDiedText;
 
@@ -57,6 +66,13 @@ public class UIManager : MonoBehaviour
         {
             crosshairs[crossToHide].transform.DOScale(new Vector3(1f, 1f, 1f), 0.2f);
         }
+    }
+    public void ShowAmmo()
+    {
+        ammoT.DOFade(1f, 1f);
+        ammoIm.DOFade(1f, 1f);
+        ammoCircle.DOFade(1f, 1f);
+        ammoCircleBack.DOFade(1f, 1f);
     }
     private IEnumerator WaitForSpawnText()
     {

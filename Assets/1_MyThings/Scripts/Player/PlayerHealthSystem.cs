@@ -7,6 +7,9 @@ public class PlayerHealthSystem : MonoBehaviour
 
     private float health;
 
+    public float Health { get => health;}
+    public float MaxHp { get => maxHp;}
+
     private void Awake()
     {
         health = maxHp;
@@ -17,8 +20,8 @@ public class PlayerHealthSystem : MonoBehaviour
     {
         health -= dmg;
         Debug.Log($"-{dmg} health");
-        Debug.Log($"Player health: {health}");
-        if (health <= 0)
+        Debug.Log($"Player health: {Health}");
+        if (Health <= 0)
         {
             UIManager.OnPlayerDie.Invoke();
             health = 0;
@@ -29,7 +32,7 @@ public class PlayerHealthSystem : MonoBehaviour
     {
         health += heal;
 
-        if (health > maxHp)
+        if (Health > maxHp)
         {
             health = maxHp;
         }

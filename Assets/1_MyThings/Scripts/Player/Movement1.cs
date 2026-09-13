@@ -22,6 +22,8 @@ public class Movement1 : Entity, IJump
     private Rigidbody rb;
     private Vector3 lastPos;
 
+    private int movementType = 0; // 0 - idle, 1 - move, 2 - jump
+
     private bool posX = false;
     private bool negX = false;
     private bool posY = false;
@@ -41,6 +43,8 @@ public class Movement1 : Entity, IJump
 
     private bool jumpPressed;
     private bool dashPressed;
+
+    public int MovementType { get => movementType;}
 
     public float JumpForce { get => jumpForce; set => jumpForce = value; }
 
@@ -78,6 +82,19 @@ public class Movement1 : Entity, IJump
         if (Input.GetKeyDown(KeyCode.LeftShift))
         {
             dashPressed = true;
+        }
+
+        if (animator.GetBool("onLand") == false)
+        {
+            movementType = 2;
+        }
+        else if (moved)
+        {
+            movementType = 1;
+        }
+        else
+        {
+            movementType = 0;
         }
     }
     private void SetDirection()
