@@ -6,6 +6,7 @@ public class Door : MonoBehaviour
     public GameObject openText;
 
     private bool playerNear = false;
+    private bool levelCompleted = false;
 
     private void Start()
     {
@@ -17,7 +18,11 @@ public class Door : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             playerNear = true;
-            openText.SetActive(true);
+
+            if (!levelCompleted)
+            {
+                openText.SetActive(true);
+            }
         }
     }
 
@@ -25,18 +30,33 @@ public class Door : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            animator.SetBool("Open", false);
             playerNear = false;
             openText.SetActive(false);
+
+            if (!levelCompleted)
+            {
+                animator.SetBool("Open", false);
+            }
         }
     }
 
     private void Update()
     {
-        if (playerNear && Input.GetKeyDown(KeyCode.E))
+        if (playerNear && Input.GetKeyDown(KeyCode.E) && !levelCompleted)
         {
             animator.SetBool("Open", true);
             openText.SetActive(false);
         }
+    }
+
+    public void LevelCompleted()
+    {
+        levelCompleted = true;
+
+        animator.SetBool("Open", true);
+
+        openText.SetActive(false);
+
+        Debug.Log("Уровень пройден! Дверь открыта.");
     }
 }
