@@ -15,10 +15,12 @@ public class Movement1 : Entity, IJump
     [SerializeField] private float dashSpeed;
     [SerializeField] private float jumpForce;
     [SerializeField] private float moveSpeed;
-
+    [SerializeField] private LayerMask obstacleMask;
+    [SerializeField] private float dashSkin = 0.05f;
 
     private static Action<bool> onDoubleJumped;
 
+    private BoxCollider playerCollider;
     private Rigidbody rb;
     private Vector3 lastPos;
 
@@ -52,6 +54,7 @@ public class Movement1 : Entity, IJump
     {
         onDoubleJumped += RecoverDash;
         rb = GetComponent<Rigidbody>();
+        playerCollider = GetComponent<BoxCollider>();
     }
     private void FixedUpdate()
     {
@@ -292,17 +295,64 @@ public class Movement1 : Entity, IJump
         dir.y = 0f;
         dir.Normalize();
 
-        Vector3 start = rb.position;
-
         while (Vector3.Distance(rb.position, target) > 0.01f)
         {
-            Vector3 newPos = Vector3.MoveTowards(rb.position, target, speed * Time.fixedDeltaTime);
-            rb.MovePosition(newPos);
+            Vector3 currentPos = rb.position;
+            Vector3 nextPos = Vector3.MoveTowards(
+                currentPos,
+                target,
+                speed * Time.fixedDeltaTime
+            );
+
+            Vector3 movement = nextPos - currentPos;
+            float distance = movement.magnitude;
+
+            if (distance > 0f)
+            {
+                Vector3 castDirection = movement.normalized;
+
+                // Центр капсулы относительно Rigidbody
+                Vector3 center = playerCollider.transform.TransformPoint(
+                    playerCollider.center
+                );
+
+                float radius = playerCollider.size.x *
+                               Mathf.Max(
+                                   playerCollider.transform.lossyScale.x,
+                                   playerCollider.transform.lossyScale.z
+                               );
+
+                float height = playerCollider.size.y *
+                               playerCollider.transform.lossyScale.y;
+
+                float halfHeight = Mathf.Max(height / 2f, radius);
+
+                Vector3 point1 = center + Vector3.up * (halfHeight - radius);
+                Vector3 point2 = center - Vector3.up * (halfHeight - radius);
+
+                if (Physics.CapsuleCast(
+                    point1,
+                    point2,
+                    radius,
+                    castDirection,
+                    out RaycastHit hit,
+                    distance + dashSkin,
+                    obstacleMask,
+                    QueryTriggerInteraction.Ignore))
+                {
+                    // Стена впереди — прекращаем дэш
+                    rb.linearVelocity = Vector3.zero;
+                    break;
+                }
+            }
+
+            rb.MovePosition(nextPos);
             rb.linearVelocity = Vector3.zero;
 
             yield return new WaitForFixedUpdate();
         }
-        rb.MovePosition(target);
+
+        rb.linearVelocity = Vector3.zero;
 
         canCheckMove = true;
         canCheckJump = true;
