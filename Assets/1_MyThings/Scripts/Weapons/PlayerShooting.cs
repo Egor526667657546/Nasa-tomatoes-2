@@ -462,6 +462,7 @@ public class PlayerShooting : MonoBehaviour
     private IEnumerator Reloading()
     {
         //Debug.Log("Перезарядка");
+        StartCoroutine(DelayBeforeQuitting(true));
         isReloading = true;
         animator.SetBool("reload", true);
         //canShoot = false;
