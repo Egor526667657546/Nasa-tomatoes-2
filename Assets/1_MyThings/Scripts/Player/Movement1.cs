@@ -55,6 +55,7 @@ public class Movement1 : Entity, IJump
     }
     private void FixedUpdate()
     {
+        Debug.Log(canCheckMove);
         if (canCheckMove)
         {
             Move();
