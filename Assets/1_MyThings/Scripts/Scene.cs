@@ -31,7 +31,7 @@ public class Scene : MonoBehaviour
 
     public void LoadMenu()
     {
-        SceneManager.LoadScene("Menu_Game");
+        SceneManager.LoadScene("Menu");
     }
     public void OpenSet()
     {
