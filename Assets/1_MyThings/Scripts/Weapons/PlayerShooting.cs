@@ -16,7 +16,6 @@ public class PlayerShooting : MonoBehaviour
     [SerializeField] private CameraMove cameraMove;
     [SerializeField] private List<GameObject> playerWeapons;
     [SerializeField] private GameObject gunPoint;
-    [SerializeField] private Image crosshairImage;
     [SerializeField] private Image AmmoCircle;
     [SerializeField] private Image AmmoCircleMask;
     [SerializeField] private TextMeshProUGUI ammoText;
@@ -27,16 +26,18 @@ public class PlayerShooting : MonoBehaviour
     private GameObject usingWeapon;
     private List<string> types;
 
+    private int pistolCartriges = -1;
+    private int akCartriges = -1;
+    private int laserCartriges = -1;
+
     private int cartridges;
     private bool hasGun = false;
     private bool isAiming = false;
     private bool isReloading = false;
-    //private bool canShoot = false;
 
     private bool wasAimingWithGun;
     private bool ammoActivated = false;
     private bool inSomething = false;
-    //private bool canCount = false;
     private float shotCooldownTimer = 0f;
     private float N = 0f;
 
@@ -525,10 +526,59 @@ public class PlayerShooting : MonoBehaviour
     }
     public void EquipWeapon(WeaponData weaponData)
     {
+        if (this.weaponData != null)
+        {
+            switch (this.weaponData.idName)
+            {
+                case "Pistol":
+                    pistolCartriges = this.cartridges;
+                    break;
+
+                case "AK":
+                    akCartriges = this.cartridges;
+                    break;
+
+                case "Laser":
+                    laserCartriges = this.cartridges;
+                    break;
+            }
+        }
         hasGun = true;
-        //canShoot = true;
         this.weaponData = weaponData;
-        this.cartridges = weaponData.cartridges;
+        switch (weaponData.idName)
+        {
+            case "Pistol":
+                this.cartridges = weaponData.cartridges;
+                if (pistolCartriges >= 0)
+                {
+                    this.cartridges = pistolCartriges;
+                }
+                break;
+
+            case "AK":
+                this.cartridges = weaponData.cartridges;
+                if (akCartriges >= 0)
+                {
+                    this.cartridges = akCartriges;
+                }
+                break;
+
+            case "Laser":
+                this.cartridges = weaponData.cartridges;
+                if (laserCartriges >= 0)
+                {
+                    this.cartridges = laserCartriges;
+                }
+                break;
+        }
+        foreach (var i in types)
+        {
+            if (i != this.weaponData.type)
+            {
+                animator.SetBool($"have{i}", false);
+                animator.SetBool($"in{weaponData.type}", false);
+            }
+        }
         foreach (var i in PlayerWeapons)
         {
             if (i.gameObject.name == weaponData.idName)
@@ -541,14 +591,6 @@ public class PlayerShooting : MonoBehaviour
             else
             {
                 i.gameObject.SetActive(false);
-            }
-        }
-        foreach (var i in types)
-        {
-            if (i != this.weaponData.type)
-            {
-                animator.SetBool($"have{i}", false);
-                animator.SetBool($"in{weaponData.type}", false);
             }
         }
     }

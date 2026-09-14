@@ -2179,7 +2179,6 @@ MonoBehaviour:
   - {fileID: 6493053331047892263}
   - {fileID: 3245111146477871889}
   gunPoint: {fileID: 3666087452523703532}
-  crosshairImage: {fileID: 0}
   AmmoCircle: {fileID: 0}
   AmmoCircleMask: {fileID: 0}
   ammoText: {fileID: 0}

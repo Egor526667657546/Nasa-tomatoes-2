@@ -5,15 +5,9 @@ public class ExplosionEffect : MonoBehaviour
 {
     [SerializeField] private List<ParticleSystem> explosions;
 
-    public void PlayExplosion()
+    public void PlayExplosion(int number)
     {
-        foreach (ParticleSystem explosion in explosions)
-        {
-            if (explosion != null)
-            {
-                explosion.Play();
-
-            }
-        }
+        explosions[number].Play();
+        explosions[2].Play();
     }
 }

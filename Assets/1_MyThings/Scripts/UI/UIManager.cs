@@ -57,15 +57,15 @@ public class UIManager : MonoBehaviour
         //    return;
         //}
         crosshairs[crossToHide].DOFade(0f, 0.2f);
-        crosshairs[crossToShow].DOFade(1f, 0.2f);
-        if (crossToShow == 2)
-        {
-            crosshairs[crossToShow].transform.DOScale(new Vector3(2f, 2f, 2f), 0.2f);
-        }
-        if (crossToHide == 2)
-        {
-            crosshairs[crossToHide].transform.DOScale(new Vector3(1f, 1f, 1f), 0.2f);
-        }
+        crosshairs[crossToShow].DOFade(0.863f, 0.2f);
+        //if (crossToShow == 2)
+        //{
+        //    crosshairs[crossToShow].transform.DOScale(new Vector3(2f, 2f, 2f), 0.2f);
+        //}
+        //if (crossToHide == 2)
+        //{
+        //    crosshairs[crossToHide].transform.DOScale(new Vector3(1f, 1f, 1f), 0.2f);
+        //}
     }
     public void ShowAmmo()
     {
