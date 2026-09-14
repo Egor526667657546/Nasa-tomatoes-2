@@ -12,6 +12,7 @@ public class ExplosionEffect : MonoBehaviour
             if (explosion != null)
             {
                 explosion.Play();
+
             }
         }
     }
