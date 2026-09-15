@@ -58,18 +58,12 @@ public class EnemyNormal : EnemyBasic
 
     private void GoTowardsTarget()
     {
-        if (
-            agent != null &&
-            MathF.Abs(
-                Vector3.Distance(
-                    gameObject.transform.position,
-                    target.transform.position
-                )
-            ) <= attackDistance &&
-            canAttack
-        )
+        if (agent != null && Vector3.Distance(transform.position, target.transform.position) <= attackDistance)
         {
-            StartCoroutine(AnimationTimer());
+            if (canAttack)
+            {
+                StartCoroutine(AnimationTimer());
+            }
         }
         else
         {
@@ -105,9 +99,12 @@ public class EnemyNormal : EnemyBasic
 
     protected override void Attack(float dmg)
     {
-        target
-            .GetComponent<PlayerHealthSystem>()
-            .TakeDamage(dmg);
+        Debug.Log("alo");
+        if (agent != null && Vector3.Distance(transform.position, target.transform.position) <= attackDistance * 2)
+        {
+            Debug.Log("alo11");
+            target.GetComponent<PlayerHealthSystem>().TakeDamage(dmg);
+        }
     }
 
     private IEnumerator AnimationTimer()

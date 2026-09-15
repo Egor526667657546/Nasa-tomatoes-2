@@ -183,25 +183,18 @@ public class Movement1 : Entity, IJump
         //}
     }
 
-    protected override void Move()
-    {
-        var horizontal = Input.GetAxis("Horizontal");
-        var vertical = Input.GetAxis("Vertical");
+   protected override void Move()
+{
+    var horizontal = Input.GetAxis("Horizontal");
+    var vertical = Input.GetAxis("Vertical");
 
-        var moveStraight = transform.forward * vertical * moveSpeed * Time.fixedDeltaTime;
-        var moveRight = transform.right * horizontal * moveSpeed * Time.fixedDeltaTime;
-        Vector3 move = moveRight + moveStraight;
-        rb.MovePosition(rb.position + move);
-        //moved = false;
-        Vector3 playerPosYNullized = transform.position;
-        playerPosYNullized.y = 0;
-        //if (Vector3.Distance(playerPosYNullized, lastPos) > 0.01f)
-        //{
-        //    moved = true;
-        //    lastPos = playerPosYNullized;
-            
-        //}
-    }
+    Vector3 moveDir = (transform.forward * vertical + transform.right * horizontal);
+    if (moveDir.sqrMagnitude > 1f)
+        moveDir.Normalize();
+
+    Vector3 targetVelocity = moveDir * moveSpeed;
+    rb.linearVelocity = new Vector3(targetVelocity.x, rb.linearVelocity.y, targetVelocity.z);
+}
     private void JumpLogic()
     {
         if (jumpPressed && (canJump || canDoubleJump))
@@ -297,11 +290,7 @@ public class Movement1 : Entity, IJump
         while (Vector3.Distance(rb.position, target) > 0.01f)
         {
             Vector3 currentPos = rb.position;
-            Vector3 nextPos = Vector3.MoveTowards(
-                currentPos,
-                target,
-                speed * Time.fixedDeltaTime
-            );
+            Vector3 nextPos = Vector3.MoveTowards(currentPos, target, speed * Time.fixedDeltaTime);
 
             Vector3 movement = nextPos - currentPos;
             float distance = movement.magnitude;
@@ -310,36 +299,22 @@ public class Movement1 : Entity, IJump
             {
                 Vector3 castDirection = movement.normalized;
 
-                // Центр капсулы относительно Rigidbody
-                Vector3 center = playerCollider.transform.TransformPoint(
-                    playerCollider.center
-                );
+                Vector3 center = playerCollider.transform.TransformPoint(playerCollider.center);
+                Vector3 halfExtents = Vector3.Scale(playerCollider.size * 0.5f, playerCollider.transform.lossyScale);
 
-                float radius = playerCollider.size.x *
-                               Mathf.Max(
-                                   playerCollider.transform.lossyScale.x,
-                                   playerCollider.transform.lossyScale.z
-                               );
-
-                float height = playerCollider.size.y *
-                               playerCollider.transform.lossyScale.y;
-
-                float halfHeight = Mathf.Max(height / 2f, radius);
-
-                Vector3 point1 = center + Vector3.up * (halfHeight - radius);
-                Vector3 point2 = center - Vector3.up * (halfHeight - radius);
-
-                if (Physics.CapsuleCast(
-                    point1,
-                    point2,
-                    radius,
+                if (Physics.BoxCast(
+                    center,
+                    halfExtents,
                     castDirection,
                     out RaycastHit hit,
+                    playerCollider.transform.rotation,
                     distance + dashSkin,
                     obstacleMask,
                     QueryTriggerInteraction.Ignore))
                 {
-                    // Стена впереди — прекращаем дэш
+                    // упираем в стену впритык, а не просто обрываем движение на месте
+                    float safeDistance = Mathf.Max(hit.distance - dashSkin, 0f);
+                    rb.MovePosition(currentPos + castDirection * safeDistance);
                     rb.linearVelocity = Vector3.zero;
                     break;
                 }
