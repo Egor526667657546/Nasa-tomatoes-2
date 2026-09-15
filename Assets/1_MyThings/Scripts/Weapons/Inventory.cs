@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Inventory : MonoBehaviour
 {
+    public WeaponData CurrentThing => weaponLeft;
+
     [SerializeField] private UIManager UIManager;
     [SerializeField] private PlayerShooting playerShooting;
     [SerializeField] private GameObject akImageRight;
@@ -12,6 +14,7 @@ public class Inventory : MonoBehaviour
     [SerializeField] private GameObject laserImageDown;
     [SerializeField] private GameObject pistolImage;
     [SerializeField] private GameObject paperImage;
+    
     private WeaponData weaponUp; //pistolet
     private WeaponData weaponRight; //rifle (AK47 or Laser)
     private WeaponData weaponDown; //rifle2
@@ -139,6 +142,23 @@ public class Inventory : MonoBehaviour
                 break;
         }
     }
+
+    public bool HasThing(string idName)
+    {
+        return weaponLeft != null && weaponLeft.idName == idName;
+    }
+
+    public bool DeliverThing(string idName)
+    {
+        if (!HasThing(idName)) return false;
+
+        paperImage.SetActive(false);
+        weaponLeft = null;
+        dontReg = false; // если хотите, чтобы после сдачи снова можно было "получить" оружие автоматически
+
+        return true;
+    }
+
     private void OnDestroy()
     {
         OnPickUpWeapon -= PickUpWeapon;
