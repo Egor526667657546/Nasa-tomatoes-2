@@ -450,6 +450,7 @@ public class PlayerShooting : MonoBehaviour
         ammoText.text = $"{cartridges}";
         float fillAmount = (float)cartridges / weaponData.cartridges;
         AmmoCircle.fillAmount = fillAmount;
+
         if (cartridges < (float)weaponData.cartridges * 0.2f)
         {
             AmmoCircleMask.DOColor(Color.red, 0.5f);
