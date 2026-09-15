@@ -12,7 +12,6 @@ public class UIManager : MonoBehaviour
     [Header("General")]
     [SerializeField] private YouDiedScaler scaler;
     [SerializeField] private GameObject defPanel;
-    [SerializeField] private GameObject deadPanel;
     [SerializeField] private float textSpawnDelay;
 
     [Header("Crosshairs")]
@@ -24,7 +23,12 @@ public class UIManager : MonoBehaviour
     [SerializeField] private CanvasGroup ammoCircleBack;
     [SerializeField] private TextMeshProUGUI ammoT;
 
+    [Header("Pause")]
+    [SerializeField] private GameObject pausePanel;
+    [SerializeField] private GameObject exitButton;
+
     [Header("Dead screen")]
+    [SerializeField] private GameObject deadPanel;
     [SerializeField] private GameObject restartButton;
     [SerializeField] private TextMeshProUGUI youDiedText;
 
@@ -39,6 +43,13 @@ public class UIManager : MonoBehaviour
         OnPlayerDie += Die;
     }
 
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape) && !deadPanel.activeSelf)
+        {
+            Pause();
+        }
+    }
     private void Die()
     {
         defPanel.SetActive(false);
@@ -46,6 +57,14 @@ public class UIManager : MonoBehaviour
         StartCoroutine(WaitForSpawnText());
         StartCoroutine(WaitForSpawnButton());
     }
+    private void Pause()
+    {
+        Time.timeScale = 1 - Time.timeScale;
+        pausePanel.SetActive(!pausePanel.activeSelf);
+        defPanel.SetActive(!defPanel.activeSelf);
+    }
+
+
     public void Restart()
     {
         SceneManager.LoadScene(1);
@@ -73,6 +92,10 @@ public class UIManager : MonoBehaviour
         ammoIm.DOFade(1f, 1f);
         ammoCircle.DOFade(1f, 1f);
         ammoCircleBack.DOFade(1f, 1f);
+    }
+    public void LeaveGame()
+    {
+        SceneManager.LoadScene("Menu");
     }
     private IEnumerator WaitForSpawnText()
     {
