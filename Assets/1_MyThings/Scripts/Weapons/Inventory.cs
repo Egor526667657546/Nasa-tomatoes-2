@@ -27,6 +27,7 @@ public class Inventory : MonoBehaviour
     private bool dontReg = false;
     public static Action<WeaponData> OnPickUpWeapon;
 
+
     private void Awake()
     {
         OnPickUpWeapon += PickUpWeapon;
@@ -142,7 +143,6 @@ public class Inventory : MonoBehaviour
                 break;
         }
     }
-
     public bool HasThing(string idName)
     {
         return weaponLeft != null && weaponLeft.idName == idName;

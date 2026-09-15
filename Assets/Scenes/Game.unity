@@ -320,7 +320,7 @@ PrefabInstance:
     - target: {fileID: 2087766891055726462, guid: eb782c3325538694a91e22e6f62b9f8d, type: 3}
       propertyPath: crosshair
       value: 
-      objectReference: {fileID: 1748839506}
+      objectReference: {fileID: 232265580}
     - target: {fileID: 2087766891055726462, guid: eb782c3325538694a91e22e6f62b9f8d, type: 3}
       propertyPath: itemCamera
       value: 
@@ -340,7 +340,7 @@ PrefabInstance:
     - target: {fileID: 2087766891055726462, guid: eb782c3325538694a91e22e6f62b9f8d, type: 3}
       propertyPath: aimCrosshair
       value: 
-      objectReference: {fileID: 1748839506}
+      objectReference: {fileID: 1234938917}
     - target: {fileID: 2087766891055726462, guid: eb782c3325538694a91e22e6f62b9f8d, type: 3}
       propertyPath: aliveEnemies
       value: 0
@@ -356,7 +356,7 @@ PrefabInstance:
     - target: {fileID: 2087766891055726462, guid: eb782c3325538694a91e22e6f62b9f8d, type: 3}
       propertyPath: circleCrosshair
       value: 
-      objectReference: {fileID: 1748839506}
+      objectReference: {fileID: 812317281}
     - target: {fileID: 2087766891055726462, guid: eb782c3325538694a91e22e6f62b9f8d, type: 3}
       propertyPath: doors.Array.size
       value: 2
@@ -6643,6 +6643,7 @@ GameObject:
   - component: {fileID: 232265581}
   - component: {fileID: 232265583}
   - component: {fileID: 232265582}
+  - component: {fileID: 232265584}
   m_Layer: 5
   m_Name: CrosshairNoAiming
   m_TagString: Untagged
@@ -6707,6 +6708,24 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 232265580}
   m_CullTransparentMesh: 1
+--- !u!114 &232265584
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 232265580}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 930c0e9f10c6be348a4af7d374cf00da, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CrosshairDynamic
+  movement: {fileID: 2146094840}
+  crosshairRect: {fileID: 232265581}
+  normalSize: {x: 1.75, y: 1.75}
+  dynamicMoveSize: {x: 3, y: 3}
+  dynamicJumpSize: {x: 4, y: 4}
+  transitionSpeed: 10
 --- !u!1 &236658620
 GameObject:
   m_ObjectHideFlags: 0
@@ -18071,17 +18090,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: 7b44d744f6c37d441952d043e70b584c, type: 3}
   m_PrefabInstance: {fileID: 558214839}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &560053809 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 7967035374087591666, guid: 2d3431791e41d59429050eb3df9bb37d, type: 3}
-  m_PrefabInstance: {fileID: 1131149435}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshProUGUI
 --- !u!1 &562163125
 GameObject:
   m_ObjectHideFlags: 0
@@ -19782,17 +19790,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1136401124}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &624794585 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 8301387971746064047, guid: 2d3431791e41d59429050eb3df9bb37d, type: 3}
-  m_PrefabInstance: {fileID: 1131149435}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
 --- !u!1001 &628281148
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -31183,7 +31180,7 @@ PrefabInstance:
     - target: {fileID: 2087766891055726462, guid: eb782c3325538694a91e22e6f62b9f8d, type: 3}
       propertyPath: crosshair
       value: 
-      objectReference: {fileID: 1748839506}
+      objectReference: {fileID: 232265580}
     - target: {fileID: 2087766891055726462, guid: eb782c3325538694a91e22e6f62b9f8d, type: 3}
       propertyPath: itemCamera
       value: 
@@ -31203,7 +31200,7 @@ PrefabInstance:
     - target: {fileID: 2087766891055726462, guid: eb782c3325538694a91e22e6f62b9f8d, type: 3}
       propertyPath: aimCrosshair
       value: 
-      objectReference: {fileID: 1748839506}
+      objectReference: {fileID: 1234938917}
     - target: {fileID: 2087766891055726462, guid: eb782c3325538694a91e22e6f62b9f8d, type: 3}
       propertyPath: playerMovement
       value: 
@@ -31211,7 +31208,7 @@ PrefabInstance:
     - target: {fileID: 2087766891055726462, guid: eb782c3325538694a91e22e6f62b9f8d, type: 3}
       propertyPath: circleCrosshair
       value: 
-      objectReference: {fileID: 1748839506}
+      objectReference: {fileID: 812317281}
     - target: {fileID: 2087766891055726462, guid: eb782c3325538694a91e22e6f62b9f8d, type: 3}
       propertyPath: levelCompleteText
       value: 
@@ -32623,7 +32620,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1462047356564891667, guid: 0c81b7a2145a51c4b85456c32e64eb40, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -133.2
+      value: -289.58
       objectReference: {fileID: 0}
     - target: {fileID: 1462047356564891667, guid: 0c81b7a2145a51c4b85456c32e64eb40, type: 3}
       propertyPath: m_LocalPosition.y
@@ -32631,7 +32628,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1462047356564891667, guid: 0c81b7a2145a51c4b85456c32e64eb40, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 651.9
+      value: 687
       objectReference: {fileID: 0}
     - target: {fileID: 1462047356564891667, guid: 0c81b7a2145a51c4b85456c32e64eb40, type: 3}
       propertyPath: m_LocalRotation.w
@@ -32681,6 +32678,18 @@ PrefabInstance:
       propertyPath: 'uiRegisters.Array.data[2]'
       value: 
       objectReference: {fileID: 2026610957}
+    - target: {fileID: 4828168316418083842, guid: 0c81b7a2145a51c4b85456c32e64eb40, type: 3}
+      propertyPath: dashSpeed
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 4828168316418083842, guid: 0c81b7a2145a51c4b85456c32e64eb40, type: 3}
+      propertyPath: jumpForce
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 4828168316418083842, guid: 0c81b7a2145a51c4b85456c32e64eb40, type: 3}
+      propertyPath: moveSpeed
+      value: 15
+      objectReference: {fileID: 0}
     - target: {fileID: 5444143342322776177, guid: 0c81b7a2145a51c4b85456c32e64eb40, type: 3}
       propertyPath: UIManager
       value: 
@@ -32724,7 +32733,7 @@ PrefabInstance:
     - target: {fileID: 7376500743176853927, guid: 0c81b7a2145a51c4b85456c32e64eb40, type: 3}
       propertyPath: AmmoCircleMask
       value: 
-      objectReference: {fileID: 1755871123}
+      objectReference: {fileID: 1381749490}
     - target: {fileID: 7376500743176853927, guid: 0c81b7a2145a51c4b85456c32e64eb40, type: 3}
       propertyPath: crosshairImage
       value: 
@@ -35678,17 +35687,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: 7b44d744f6c37d441952d043e70b584c, type: 3}
   m_PrefabInstance: {fileID: 1048376941}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1048724122 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 2214406988717259541, guid: 2d3431791e41d59429050eb3df9bb37d, type: 3}
-  m_PrefabInstance: {fileID: 1131149435}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
 --- !u!1 &1050194898
 GameObject:
   m_ObjectHideFlags: 0
@@ -37405,7 +37403,7 @@ PrefabInstance:
     - target: {fileID: 2087766891055726462, guid: eb782c3325538694a91e22e6f62b9f8d, type: 3}
       propertyPath: crosshair
       value: 
-      objectReference: {fileID: 1748839506}
+      objectReference: {fileID: 232265580}
     - target: {fileID: 2087766891055726462, guid: eb782c3325538694a91e22e6f62b9f8d, type: 3}
       propertyPath: itemCamera
       value: 
@@ -37425,7 +37423,7 @@ PrefabInstance:
     - target: {fileID: 2087766891055726462, guid: eb782c3325538694a91e22e6f62b9f8d, type: 3}
       propertyPath: aimCrosshair
       value: 
-      objectReference: {fileID: 1748839506}
+      objectReference: {fileID: 1234938917}
     - target: {fileID: 2087766891055726462, guid: eb782c3325538694a91e22e6f62b9f8d, type: 3}
       propertyPath: playerMovement
       value: 
@@ -37433,7 +37431,7 @@ PrefabInstance:
     - target: {fileID: 2087766891055726462, guid: eb782c3325538694a91e22e6f62b9f8d, type: 3}
       propertyPath: circleCrosshair
       value: 
-      objectReference: {fileID: 1748839506}
+      objectReference: {fileID: 812317281}
     - target: {fileID: 2087766891055726462, guid: eb782c3325538694a91e22e6f62b9f8d, type: 3}
       propertyPath: levelCompleteText
       value: 
@@ -37842,11 +37840,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1121322922 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4701630355187839018, guid: 2d3431791e41d59429050eb3df9bb37d, type: 3}
-  m_PrefabInstance: {fileID: 1131149435}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1121347603
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -38421,6 +38414,10 @@ PrefabInstance:
     - target: {fileID: 3554999056974500534, guid: 2d3431791e41d59429050eb3df9bb37d, type: 3}
       propertyPath: m_Name
       value: Canvas (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 3554999056974500534, guid: 2d3431791e41d59429050eb3df9bb37d, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4245143884860959966, guid: 2d3431791e41d59429050eb3df9bb37d, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
@@ -40597,6 +40594,7 @@ GameObject:
   - component: {fileID: 1234938921}
   - component: {fileID: 1234938920}
   - component: {fileID: 1234938919}
+  - component: {fileID: 1234938922}
   m_Layer: 5
   m_Name: CrosshairAiming
   m_TagString: Untagged
@@ -40676,6 +40674,24 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1234938917}
   m_CullTransparentMesh: 1
+--- !u!114 &1234938922
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1234938917}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 930c0e9f10c6be348a4af7d374cf00da, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CrosshairDynamic
+  movement: {fileID: 2146094840}
+  crosshairRect: {fileID: 1234938918}
+  normalSize: {x: 1.75, y: 1.75}
+  dynamicMoveSize: {x: 3, y: 3}
+  dynamicJumpSize: {x: 4, y: 4}
+  transitionSpeed: 10
 --- !u!1 &1236504286
 GameObject:
   m_ObjectHideFlags: 0
@@ -42610,11 +42626,11 @@ PrefabInstance:
     - target: {fileID: 5921935703401677942, guid: afbf0c6123f157f4a871306fd4eca676, type: 3}
       propertyPath: defPanel
       value: 
-      objectReference: {fileID: 566514991}
+      objectReference: {fileID: 1497817961}
     - target: {fileID: 5921935703401677942, guid: afbf0c6123f157f4a871306fd4eca676, type: 3}
       propertyPath: deadPanel
       value: 
-      objectReference: {fileID: 1121322922}
+      objectReference: {fileID: 166410980}
     - target: {fileID: 5921935703401677942, guid: afbf0c6123f157f4a871306fd4eca676, type: 3}
       propertyPath: ammoCircle
       value: 
@@ -42622,7 +42638,7 @@ PrefabInstance:
     - target: {fileID: 5921935703401677942, guid: afbf0c6123f157f4a871306fd4eca676, type: 3}
       propertyPath: youDiedText
       value: 
-      objectReference: {fileID: 560053809}
+      objectReference: {fileID: 1733873871}
     - target: {fileID: 5921935703401677942, guid: afbf0c6123f157f4a871306fd4eca676, type: 3}
       propertyPath: ammoCircleBack
       value: 
@@ -42630,15 +42646,15 @@ PrefabInstance:
     - target: {fileID: 5921935703401677942, guid: afbf0c6123f157f4a871306fd4eca676, type: 3}
       propertyPath: 'crosshairs.Array.data[0]'
       value: 
-      objectReference: {fileID: 1048724122}
+      objectReference: {fileID: 812317283}
     - target: {fileID: 5921935703401677942, guid: afbf0c6123f157f4a871306fd4eca676, type: 3}
       propertyPath: 'crosshairs.Array.data[1]'
       value: 
-      objectReference: {fileID: 624794585}
+      objectReference: {fileID: 232265582}
     - target: {fileID: 5921935703401677942, guid: afbf0c6123f157f4a871306fd4eca676, type: 3}
       propertyPath: 'crosshairs.Array.data[2]'
       value: 
-      objectReference: {fileID: 849083542}
+      objectReference: {fileID: 1234938920}
     - target: {fileID: 5980931023304708876, guid: afbf0c6123f157f4a871306fd4eca676, type: 3}
       propertyPath: m_LocalPosition.x
       value: -113.22
@@ -175129,7 +175145,7 @@ PrefabInstance:
     - target: {fileID: 2087766891055726462, guid: eb782c3325538694a91e22e6f62b9f8d, type: 3}
       propertyPath: crosshair
       value: 
-      objectReference: {fileID: 1748839506}
+      objectReference: {fileID: 232265580}
     - target: {fileID: 2087766891055726462, guid: eb782c3325538694a91e22e6f62b9f8d, type: 3}
       propertyPath: mainCamera
       value: 
@@ -175141,7 +175157,7 @@ PrefabInstance:
     - target: {fileID: 2087766891055726462, guid: eb782c3325538694a91e22e6f62b9f8d, type: 3}
       propertyPath: aimCrosshair
       value: 
-      objectReference: {fileID: 1748839506}
+      objectReference: {fileID: 1234938917}
     - target: {fileID: 2087766891055726462, guid: eb782c3325538694a91e22e6f62b9f8d, type: 3}
       propertyPath: playerMovement
       value: 
@@ -175149,7 +175165,7 @@ PrefabInstance:
     - target: {fileID: 2087766891055726462, guid: eb782c3325538694a91e22e6f62b9f8d, type: 3}
       propertyPath: circleCrosshair
       value: 
-      objectReference: {fileID: 1748839506}
+      objectReference: {fileID: 812317281}
     - target: {fileID: 2087766891055726462, guid: eb782c3325538694a91e22e6f62b9f8d, type: 3}
       propertyPath: doors.Array.size
       value: 3
@@ -196860,6 +196876,17 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1417031974}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2146094840 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4828168316418083842, guid: 0c81b7a2145a51c4b85456c32e64eb40, type: 3}
+  m_PrefabInstance: {fileID: 938532558}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c21e2050530104d41927e205df91b078, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Movement1
 --- !u!1001 &2147393176
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -75,6 +75,7 @@ public class AnimManager : MonoBehaviour
 
     private IEnumerator PreAnim()
     {
+        Debug.Log("erm");
         aimCrosshair.SetActive(false);
         crosshair.SetActive(false);
         circleCrosshair.SetActive(false);
@@ -98,6 +99,9 @@ public class AnimManager : MonoBehaviour
 
             if (lastAnim)
             {
+                Debug.Log("end");
+                aimCrosshair.SetActive(true);
+                crosshair.SetActive(true);
                 circleCrosshair.SetActive(true);
 
                 mainCamera.gameObject.SetActive(true);

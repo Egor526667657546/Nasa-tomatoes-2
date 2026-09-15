@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class DeliveryZone : MonoBehaviour
 {
-    [SerializeField] private string requiredItemId; // idName нужного предмета
+    [SerializeField] private string requiredItemId;
     [SerializeField] private string playerTag = "Player";
 
     private void OnTriggerEnter(Collider other)
