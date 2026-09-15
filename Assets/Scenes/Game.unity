@@ -613,7 +613,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1960953799657114817, guid: 0c81b7a2145a51c4b85456c32e64eb40, type: 3}
   m_PrefabInstance: {fileID: 938532558}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 938532559}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: baf25ebead156ac419a5fc2fea0ae8f5, type: 3}
@@ -624,7 +624,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 6365262879317582090, guid: 0c81b7a2145a51c4b85456c32e64eb40, type: 3}
   m_PrefabInstance: {fileID: 938532558}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 938532559}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b7aa2581da08f134793c99eae4ee66d3, type: 3}
@@ -34530,6 +34530,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1403051524}
     - target: {fileID: 7376500743176853927, guid: 0c81b7a2145a51c4b85456c32e64eb40, type: 3}
+      propertyPath: weaponRecoil
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 7376500743176853927, guid: 0c81b7a2145a51c4b85456c32e64eb40, type: 3}
       propertyPath: AmmoCircleMask
       value: 
       objectReference: {fileID: 1381749490}
@@ -34545,11 +34549,20 @@ PrefabInstance:
       propertyPath: m_Name
       value: Geroy
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 7435971791455400857, guid: 0c81b7a2145a51c4b85456c32e64eb40, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 8976068944069414164, guid: 0c81b7a2145a51c4b85456c32e64eb40, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2146094841}
   m_SourcePrefab: {fileID: 100100000, guid: 0c81b7a2145a51c4b85456c32e64eb40, type: 3}
+--- !u!1 &938532559 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8976068944069414164, guid: 0c81b7a2145a51c4b85456c32e64eb40, type: 3}
+  m_PrefabInstance: {fileID: 938532558}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &951868945
 GameObject:
   m_ObjectHideFlags: 0
@@ -38608,6 +38621,11 @@ PrefabInstance:
 Transform:
   m_CorrespondingSourceObject: {fileID: 4480898967109445159, guid: e302621f2616c4042b0c4be3f63ea422, type: 3}
   m_PrefabInstance: {fileID: 1078060733}
+  m_PrefabAsset: {fileID: 0}
+--- !u!20 &1078090128 stripped
+Camera:
+  m_CorrespondingSourceObject: {fileID: 217055172878777590, guid: 0c81b7a2145a51c4b85456c32e64eb40, type: 3}
+  m_PrefabInstance: {fileID: 938532558}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1078876446
 PrefabInstance:
@@ -43076,8 +43094,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 40150d816a2cc1949afc15f7f00c3f4e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CrosshairFollow
-  weaponRecoil: {fileID: 1900337854}
-  playerCamera: {fileID: 1900337834}
+  weaponRecoil: {fileID: 0}
+  playerCamera: {fileID: 1078090128}
   smoothSpeed: 15
 --- !u!114 &1234938920
 MonoBehaviour:
@@ -204126,12 +204144,56 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 4828168316418083842, guid: 0c81b7a2145a51c4b85456c32e64eb40, type: 3}
   m_PrefabInstance: {fileID: 938532558}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 938532559}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c21e2050530104d41927e205df91b078, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Movement1
+--- !u!114 &2146094841
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 938532559}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23ba89a971f2a2d43a4f3ea63b44d2f3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::WeaponRecoil
+  recoilTimeout: 0.1333
+  sprayPattern:
+  - {x: 0, y: 0}
+  - {x: 0, y: 2}
+  - {x: 0, y: 3}
+  - {x: 0, y: 4}
+  - {x: 0, y: 5}
+  - {x: 0, y: 6}
+  - {x: 1, y: 7}
+  - {x: 2, y: 8}
+  - {x: 3, y: 8}
+  - {x: 2, y: 7}
+  - {x: 1, y: 6}
+  - {x: 0, y: 7}
+  - {x: -1, y: 8}
+  - {x: -2, y: 8}
+  - {x: -3, y: 8}
+  - {x: -2, y: 7}
+  - {x: -1, y: 6}
+  - {x: 0, y: 7}
+  - {x: 1, y: 6}
+  - {x: 0.5, y: 7}
+  - {x: 0, y: 8}
+  - {x: -0.5, y: 8}
+  - {x: -1.5, y: 9}
+  - {x: -1.5, y: 8}
+  - {x: -2, y: 7}
+  - {x: -1.5, y: 6}
+  - {x: -1, y: 7}
+  - {x: -1, y: 9}
+  - {x: 0, y: 8}
+  - {x: 0, y: 6}
 --- !u!1001 &2147393176
 PrefabInstance:
   m_ObjectHideFlags: 0

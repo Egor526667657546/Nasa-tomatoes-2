@@ -143,18 +143,18 @@ public class Inventory : MonoBehaviour
                 break;
         }
     }
-    public bool HasThing(string idName)
+    public bool HasThing()
     {
-        return weaponLeft != null && weaponLeft.idName == idName;
+        return weaponLeft != null;
     }
 
-    public bool DeliverThing(string idName)
+    public bool DeliverThing()
     {
-        if (!HasThing(idName)) return false;
+        if (!HasThing()) return false;
 
         paperImage.SetActive(false);
         weaponLeft = null;
-        dontReg = false; // если хотите, чтобы после сдачи снова можно было "получить" оружие автоматически
+        dontReg = false;
 
         return true;
     }

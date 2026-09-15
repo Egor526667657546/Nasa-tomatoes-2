@@ -482,7 +482,7 @@ public class PlayerShooting : MonoBehaviour
         float timeForOne = weaponData.reloadSpeed / ammoToAdd;
         for (int i = cartridges; i < weaponData.cartridges; i++)
         {
-            Debug.Log($"Hi: {ammoToAdd}");
+            //Debug.Log($"Hi: {ammoToAdd}");
             yield return new WaitForSeconds(timeForOne);
             cartridges += 1;
         }

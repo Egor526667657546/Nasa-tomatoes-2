@@ -19,8 +19,8 @@ public class PlayerHealthSystem : MonoBehaviour
     public void TakeDamage(float dmg)
     {
         health -= dmg;
-        Debug.Log($"-{dmg} health");
-        Debug.Log($"Player health: {Health}");
+        //Debug.Log($"-{dmg} health");
+        //Debug.Log($"Player health: {Health}");
         if (Health <= 0)
         {
             UIManager.OnPlayerDie.Invoke();

@@ -11578,6 +11578,10 @@ PrefabInstance:
       propertyPath: 'playerWeapons.Array.data[3]'
       value: 
       objectReference: {fileID: 2031732746}
+    - target: {fileID: 7435971791455400857, guid: 0c81b7a2145a51c4b85456c32e64eb40, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7736925099946306900, guid: 0c81b7a2145a51c4b85456c32e64eb40, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
