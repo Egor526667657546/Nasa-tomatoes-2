@@ -23,7 +23,7 @@ public class WeaponChanger : MonoBehaviour
         {
             ShowUI();
         }
-        if (Input.GetMouseButtonUp(2))
+        if (Input.GetMouseButtonUp(2) && !uiManager.DeadPanel.activeSelf)
         {
             foreach (var uiRegister in uiRegisters)
             {

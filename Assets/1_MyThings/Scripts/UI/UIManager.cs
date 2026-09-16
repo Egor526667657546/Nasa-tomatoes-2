@@ -70,10 +70,10 @@ public class UIManager : MonoBehaviour
     }
 
 
-    public void Restart()
-    {
-        SceneManager.LoadScene(1);
-    }
+    //public void Restart()
+    //{
+    //    SceneManager.LoadScene(1);
+    //}
     public void ChangeCrosshairs(int crossToHide, int crossToShow)
     {
         //if(!canChange)
@@ -100,10 +100,12 @@ public class UIManager : MonoBehaviour
     }
     public void LeaveGame()
     {
+        DOTween.KillAll();
         SceneManager.LoadScene("Menu");
     }
     public void RestartGame()
     {
+        DOTween.KillAll();
         SceneManager.LoadScene("Game");
     }
     private IEnumerator WaitForSpawnText()
@@ -121,14 +123,14 @@ public class UIManager : MonoBehaviour
         restartButton.SetActive(true);
         restartButtonText.gameObject.SetActive(true);
         Debug.Log("aboba");
-        restartButton.GetComponent<Image>().DOFade(1f, 0.5f).SetUpdate(true);
-        restartButtonText.DOFade(1f, 0.5f).SetUpdate(true);
+        restartButton.GetComponent<Image>().DOFade(1f, 3f).SetUpdate(true);
+        restartButtonText.DOFade(1f, 3f).SetUpdate(true);
 
 
         exitButtonDead.SetActive(true);
         exitButtonDeadText.gameObject.SetActive(true);
-        exitButtonDead.GetComponent<Image>().DOFade(1f, 0.5f).SetUpdate(true);
-        exitButtonDeadText.DOFade(1f, 0.5f).SetUpdate(true);
+        exitButtonDead.GetComponent<Image>().DOFade(1f, 3f).SetUpdate(true);
+        exitButtonDeadText.DOFade(1f, 3f).SetUpdate(true);
     }
     private void OnDestroy()
     {

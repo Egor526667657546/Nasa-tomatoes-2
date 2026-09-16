@@ -34649,6 +34649,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1497817961}
     - target: {fileID: 1960953799657114817, guid: 0c81b7a2145a51c4b85456c32e64eb40, type: 3}
+      propertyPath: uiManager
+      value: 
+      objectReference: {fileID: 2029711657}
+    - target: {fileID: 1960953799657114817, guid: 0c81b7a2145a51c4b85456c32e64eb40, type: 3}
       propertyPath: weaponPanel
       value: 
       objectReference: {fileID: 374968369}
@@ -190423,7 +190427,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 2029711657}
         m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
-        m_MethodName: Restart
+        m_MethodName: RestartGame
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
