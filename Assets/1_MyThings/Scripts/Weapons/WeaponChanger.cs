@@ -38,7 +38,7 @@ public class WeaponChanger : MonoBehaviour
     }
     public void ShowUI()
     {
-        Cursor.lockState = CursorLockMode.None;
+        Cursor.lockState = CursorLockMode.Confined;
         Cursor.visible = true;
 
         cameraMove.CanRotate = false;

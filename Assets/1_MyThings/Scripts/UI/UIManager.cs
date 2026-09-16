@@ -50,9 +50,20 @@ public class UIManager : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape) && !DeadPanel.activeSelf)
+        if (Input.GetKeyDown(KeyCode.F1) && !DeadPanel.activeSelf)
         {
             Pause();
+            if (Time.timeScale == 0)
+            {
+                Cursor.lockState = CursorLockMode.Confined;
+                Cursor.visible = true;
+
+            }
+            else
+            {
+                Cursor.lockState = CursorLockMode.Locked;
+                Cursor.visible = false;
+            }
         }
     }
     private void Die()
