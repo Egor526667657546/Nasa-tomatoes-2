@@ -3,52 +3,38 @@ using UnityEngine.SceneManagement;
 
 public class SceneChanger : MonoBehaviour
 {
-    public GameObject panel;
-    public GameObject pausePanel;
+    public GameObject mainPanel;
+    public GameObject controlsPanel;
 
     private bool isPaused = false;
 
-    void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            if (isPaused)
-            {
-                ClosePause();
-            }
-            else
-            {
-                OpenPause();
-            }
-        }
-    }
 
     public void OpenPause()
     {
-        pausePanel.SetActive(true);
+        controlsPanel.SetActive(true);
         isPaused = true;
         Time.timeScale = 0f;
     }
 
     public void ClosePause()
     {
-        pausePanel.SetActive(false);
+        controlsPanel.SetActive(false);
         isPaused = false;
         Time.timeScale = 1f;
     }
     public void TogglePanel()
     {
-        panel.SetActive(!panel.activeSelf);
+        mainPanel.SetActive(!mainPanel.activeSelf);
     }
 
     public void OpenPanel()
     {
-        panel.SetActive(true);
+        mainPanel.SetActive(true);
     }
 
     public void ClosePanel()
     {
-        panel.SetActive(false);
+        mainPanel.SetActive(false);
     }
 
     public void LoadLoading()
