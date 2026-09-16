@@ -37,6 +37,8 @@ public class UIManager : MonoBehaviour
 
     public static Action OnPlayerDie;
 
+    public GameObject DeadPanel { get => deadPanel;}
+
     //private bool canChange = true;
 
     //public bool CanChange { get => canChange; set => canChange = value; }
@@ -48,7 +50,7 @@ public class UIManager : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape) && !deadPanel.activeSelf)
+        if (Input.GetKeyDown(KeyCode.Escape) && !DeadPanel.activeSelf)
         {
             Pause();
         }
@@ -56,10 +58,9 @@ public class UIManager : MonoBehaviour
     private void Die()
     {
         defPanel.SetActive(false);
-        deadPanel.SetActive(true);
-        //StartCoroutine(WaitForSpawnText());
-        //StartCoroutine(WaitForSpawnButtons());
-        StartCoroutine(ShowDeathScreen());
+        DeadPanel.SetActive(true);
+        StartCoroutine(WaitForSpawnText());
+        StartCoroutine(WaitForSpawnButtons());
     }
     private void Pause()
     {
@@ -105,61 +106,29 @@ public class UIManager : MonoBehaviour
     {
         SceneManager.LoadScene("Game");
     }
-    //private IEnumerator WaitForSpawnText()
-    //{
-    //    yield return new WaitForSecondsRealtime(textSpawnDelay);
-
-    //    youDiedText.DOFade(1f, 0.2f).SetUpdate(true);
-    //    scaler.ToScale(youDiedText);
-    //}
-
-    //private IEnumerator WaitForSpawnButtons()
-    //{
-    //    yield return new WaitForSecondsRealtime(textSpawnDelay + 3.1f);
-    //    Debug.Log($"BUTTONS ACTIVE AT: {Time.unscaledTime}");
-
-    //    restartButton.SetActive(true);
-    //    restartButtonText.gameObject.SetActive(true);
-    //    Debug.Log($"FADE START AT: {Time.unscaledTime}");
-    //    restartButton.GetComponent<Image>().DOFade(1f, 0.2f).SetUpdate(true);
-    //    restartButtonText.DOFade(1f, 0.2f).SetUpdate(true);
-
-
-    //    exitButtonDead.SetActive(true);
-    //    exitButtonDeadText.gameObject.SetActive(true);
-    //    exitButtonDead.GetComponent<Image>().DOFade(1f, 0.2f).SetUpdate(true);
-    //    exitButtonDeadText.DOFade(1f, 0.2f).SetUpdate(true);
-    //}
-    private IEnumerator ShowDeathScreen()
+    private IEnumerator WaitForSpawnText()
     {
         yield return new WaitForSecondsRealtime(textSpawnDelay);
 
         youDiedText.DOFade(1f, 0.2f).SetUpdate(true);
         scaler.ToScale(youDiedText);
+    }
 
-        yield return new WaitForSecondsRealtime(3.1f);
+    private IEnumerator WaitForSpawnButtons()
+    {
+        yield return new WaitForSecondsRealtime(textSpawnDelay + 3.1f);
 
         restartButton.SetActive(true);
         restartButtonText.gameObject.SetActive(true);
+        Debug.Log("aboba");
+        restartButton.GetComponent<Image>().DOFade(1f, 0.5f).SetUpdate(true);
+        restartButtonText.DOFade(1f, 0.5f).SetUpdate(true);
 
-        restartButton.GetComponent<Image>()
-            .DOFade(1f, 0.2f)
-            .SetUpdate(true);
-
-        restartButtonText
-            .DOFade(1f, 0.2f)
-            .SetUpdate(true);
 
         exitButtonDead.SetActive(true);
         exitButtonDeadText.gameObject.SetActive(true);
-
-        exitButtonDead.GetComponent<Image>()
-            .DOFade(1f, 0.2f)
-            .SetUpdate(true);
-
-        exitButtonDeadText
-            .DOFade(1f, 0.2f)
-            .SetUpdate(true);
+        exitButtonDead.GetComponent<Image>().DOFade(1f, 0.5f).SetUpdate(true);
+        exitButtonDeadText.DOFade(1f, 0.5f).SetUpdate(true);
     }
     private void OnDestroy()
     {

@@ -4,6 +4,7 @@ using UnityEngine;
 public class WeaponChanger : MonoBehaviour
 {
     [SerializeField] private List<UIRegister> uiRegisters;
+    [SerializeField] private UIManager uiManager;
     [SerializeField] private PlayerShooting playerShooting;
     [SerializeField] private Inventory invenotry;
     [SerializeField] private CameraMove cameraMove;
@@ -18,7 +19,7 @@ public class WeaponChanger : MonoBehaviour
     }
     private void Update()
     {
-        if (Input.GetMouseButtonDown(2) && animator.GetBool("onLand"))
+        if (Input.GetMouseButtonDown(2) && animator.GetBool("onLand") && !uiManager.DeadPanel.activeSelf)
         {
             ShowUI();
         }
