@@ -109,6 +109,10 @@ public class UIManager : MonoBehaviour
         ammoCircle.DOFade(1f, 1f);
         ammoCircleBack.DOFade(1f, 1f);
     }
+    public void ChangeUI()
+    {
+        defPanel.SetActive(!defPanel.activeSelf);
+    }
     public void LeaveGame()
     {
         DOTween.KillAll();

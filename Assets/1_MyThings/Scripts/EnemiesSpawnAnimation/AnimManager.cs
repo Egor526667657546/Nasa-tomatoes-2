@@ -7,6 +7,7 @@ public class AnimManager : MonoBehaviour
 {
     public static AnimManager ActiveManager;
 
+    [SerializeField] private UIManager uiManager;
     [SerializeField] private SpawnEnemies spawnEnemies;
     [SerializeField] private Movement1 playerMovement;
 
@@ -81,6 +82,7 @@ public class AnimManager : MonoBehaviour
         circleCrosshair.SetActive(false);
 
         playerMovement.LockOrNotMovement(false);
+        uiManager.ChangeUI();
 
         mainCamera.gameObject.SetActive(false);
 
@@ -107,6 +109,7 @@ public class AnimManager : MonoBehaviour
                 mainCamera.gameObject.SetActive(true);
 
                 playerMovement.LockOrNotMovement(true);
+                uiManager.ChangeUI();
             }
         }
     }
@@ -212,6 +215,7 @@ public class AnimManager : MonoBehaviour
 
     private void LevelComplete()
     {
+        playerMovement.LockOrNotMovement(false);
         Debug.Log(
             "спнбемэ опнидем: " +
             gameObject.name
@@ -247,6 +251,7 @@ public class AnimManager : MonoBehaviour
         if (mainCamera != null)
         {
             mainCamera.gameObject.SetActive(false);
+            uiManager.ChangeUI();
         }
 
         foreach (Camera cam in cameras)
@@ -266,6 +271,8 @@ public class AnimManager : MonoBehaviour
         if (mainCamera != null)
         {
             mainCamera.gameObject.SetActive(true);
+            uiManager.ChangeUI();
+            playerMovement.LockOrNotMovement(true);
         }
     }
 

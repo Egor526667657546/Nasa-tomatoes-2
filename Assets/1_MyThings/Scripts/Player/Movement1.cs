@@ -7,6 +7,8 @@ using static UnityEditor.ShaderGraph.Internal.KeywordDependentCollection;
 
 public class Movement1 : Entity, IJump
 {
+    [SerializeField] private PlayerShooting playerShooting;
+    [SerializeField] private CameraMove cameraMove;
     [SerializeField] private Animator animator;
     [SerializeField] private GameObject bottomPoint;
     [SerializeField] private float secondJumpCD;
@@ -337,6 +339,8 @@ public class Movement1 : Entity, IJump
         canCheckDash = condition;
         canCheckJump = condition;
         canCheckMove = condition;
+        playerShooting.CanShoot = condition;
+        cameraMove.CanRotate = condition;
     }
 
     private IEnumerator DashCD(float coolDown)
