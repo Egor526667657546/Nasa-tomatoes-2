@@ -6,6 +6,7 @@ public class Door : MonoBehaviour
     public Animator animator;
 
     private bool levelCompleted = false;
+    private bool canPlayAgain = true;
 
     private void OnTriggerEnter(Collider other)
     {
@@ -14,7 +15,13 @@ public class Door : MonoBehaviour
             if (!levelCompleted)
             {
                 animator.SetBool("open", true);
-                animManager.StartAnim();
+                Debug.Log(animManager != null);
+                Debug.Log(canPlayAgain);
+                if (animManager != null && canPlayAgain)
+                {
+                    canPlayAgain = false;
+                    animManager.StartAnim();
+                }
             }
         }
     }

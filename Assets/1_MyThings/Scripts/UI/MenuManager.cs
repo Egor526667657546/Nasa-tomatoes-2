@@ -29,12 +29,14 @@ public class SceneChanger : MonoBehaviour
 
     public void OpenPanel()
     {
-        mainPanel.SetActive(true);
+        mainPanel.SetActive(false);
+        controlsPanel.SetActive(true);
     }
 
     public void ClosePanel()
     {
-        mainPanel.SetActive(false);
+        mainPanel.SetActive(true);
+        controlsPanel.SetActive(false);
     }
 
     public void LoadLoading()

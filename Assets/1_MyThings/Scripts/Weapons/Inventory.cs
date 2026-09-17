@@ -14,6 +14,8 @@ public class Inventory : MonoBehaviour
     [SerializeField] private GameObject laserImageDown;
     [SerializeField] private GameObject pistolImage;
     [SerializeField] private GameObject paperImage;
+    [SerializeField] private GameObject hammerImage;
+    [SerializeField] private GameObject fuelImage;
     
     private WeaponData weaponUp; //pistolet
     private WeaponData weaponRight; //rifle (AK47 or Laser)
@@ -83,7 +85,20 @@ public class Inventory : MonoBehaviour
         {
             dontReg = true;
             weaponLeft = weapon;
-            paperImage.SetActive(true);
+            switch (weapon.idName)
+            {
+                case "Paper":
+                    paperImage.SetActive(true);
+                    break;
+                case "Hammer":
+                    hammerImage.SetActive(true);
+                    break;
+                case "Fuel":
+                    fuelImage.SetActive(true);
+                    break;
+
+            }
+
         }
 
         playerShooting.Types.Clear();
@@ -114,6 +129,8 @@ public class Inventory : MonoBehaviour
 
     public void ChangeWeapon(int number)
     {
+        Debug.Log("1");
+        Debug.Log(number);
         switch (number)
         {
             case 0:
@@ -153,6 +170,9 @@ public class Inventory : MonoBehaviour
         if (!HasThing()) return false;
 
         paperImage.SetActive(false);
+        hammerImage.SetActive(false);
+        fuelImage.SetActive(false);
+
         weaponLeft = null;
         dontReg = false;
 

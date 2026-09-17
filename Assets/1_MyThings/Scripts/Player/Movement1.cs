@@ -315,7 +315,6 @@ public class Movement1 : Entity, IJump
                     obstacleMask,
                     QueryTriggerInteraction.Ignore))
                 {
-                    // упираем в стену впритык, а не просто обрываем движение на месте
                     float safeDistance = Mathf.Max(hit.distance - dashSkin, 0f);
                     rb.MovePosition(currentPos + castDirection * safeDistance);
                     rb.linearVelocity = Vector3.zero;

@@ -7,6 +7,7 @@ public class AnimManager : MonoBehaviour
 {
     public static AnimManager ActiveManager;
 
+    [SerializeField] private Door door;
     [SerializeField] private UIManager uiManager;
     [SerializeField] private SpawnEnemies spawnEnemies;
     [SerializeField] private Movement1 playerMovement;
@@ -81,7 +82,7 @@ public class AnimManager : MonoBehaviour
         aimCrosshair.SetActive(false);
         crosshair.SetActive(false);
         circleCrosshair.SetActive(false);
-
+        //playerMovement.gameObject.SetActive(false);
         playerMovement.LockOrNotMovement(false);
         uiManager.HideDef();
 
@@ -109,6 +110,7 @@ public class AnimManager : MonoBehaviour
 
                 mainCamera.gameObject.SetActive(true);
 
+                playerMovement.gameObject.SetActive(true);
                 playerMovement.LockOrNotMovement(true);
                 uiManager.ShowDef();
             }
@@ -208,6 +210,7 @@ public class AnimManager : MonoBehaviour
 
     private void LevelComplete()
     {
+        door.LevelCompleted();
         playerMovement.LockOrNotMovement(false);
         Debug.Log(
             "спнбемэ опнидем: " +
@@ -243,7 +246,8 @@ public class AnimManager : MonoBehaviour
 
         if (mainCamera != null)
         {
-            Debug.Log("alo");
+            playerMovement.LockOrNotMovement(false);
+            //playerMovement.gameObject.SetActive(false);
             mainCamera.gameObject.SetActive(false);
             uiManager.HideDef();
             animator.SetBool("isAiming", false);
@@ -269,6 +273,7 @@ public class AnimManager : MonoBehaviour
             mainCamera.gameObject.SetActive(true);
             uiManager.ShowDef();
             playerMovement.LockOrNotMovement(true);
+            playerMovement.gameObject.SetActive(true);
         }
     }
     private IEnumerator WaitForSeconds(float seconds)

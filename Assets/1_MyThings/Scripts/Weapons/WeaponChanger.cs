@@ -11,17 +11,11 @@ public class WeaponChanger : MonoBehaviour
     [SerializeField] private GameObject mainPanel;
     [SerializeField] private GameObject weaponPanel;
 
-    private Animator animator;
-
     private bool canChange = true;
     private bool prevCanChange = true;
 
     public bool CanChange { get => canChange; set => canChange = value; }
 
-    private void Start()
-    {
-        animator = gameObject.GetComponent<Animator>();
-    }
     //private void Update()
     //{
     //    if (!canChange)
@@ -54,7 +48,7 @@ public class WeaponChanger : MonoBehaviour
         }
         prevCanChange = canChange;
 
-        if (Input.GetMouseButtonDown(2) && animator.GetBool("onLand") && !uiManager.DeadPanel.activeSelf && canChange)
+        if (Input.GetMouseButtonDown(2) && !uiManager.DeadPanel.activeSelf && canChange)
         {
             ShowUI();
         }
@@ -91,6 +85,7 @@ public class WeaponChanger : MonoBehaviour
     }
     public void ChangeWeapon(int number) // 0 - up, 1 - right, 2 - down, 3 - left
     {
+        Debug.Log("0");
         HideUI();
         invenotry.ChangeWeapon(number);
     }

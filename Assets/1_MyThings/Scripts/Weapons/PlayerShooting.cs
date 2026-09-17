@@ -573,6 +573,7 @@ public class PlayerShooting : MonoBehaviour
                 break;
 
             case "Laser":
+                Debug.Log("111");
                 this.cartridges = weaponData.cartridges;
                 if (laserCartriges >= 0)
                 {
@@ -588,18 +589,21 @@ public class PlayerShooting : MonoBehaviour
                 animator.SetBool($"in{weaponData.type}", false);
             }
         }
-        foreach (var i in PlayerWeapons)
+        foreach (var i in playerWeapons)
         {
             if (i.gameObject.name == weaponData.idName)
             {
                 usingWeapon = i.gameObject;
                 i.gameObject.SetActive(true);
+                Debug.Log($"Object: {i.name}, WeaponData: {weaponData.idName}");
                 animator.SetBool($"have{weaponData.type}", true);
                 inSomething = true;
             }
             else
             {
                 i.gameObject.SetActive(false);
+                Debug.Log(i.gameObject.name);
+                Debug.Log(i.gameObject.activeSelf);
             }
         }
     }
