@@ -14,6 +14,7 @@ public class AnimManager : MonoBehaviour
     [SerializeField] private Camera mainCamera;
     [SerializeField] private List<Camera> cameras;
 
+    [SerializeField] private Animator animator;
     [SerializeField] private List<EnemyBasic> typesOfEnemies;
     [SerializeField] private List<Transform> aimDots;
 
@@ -22,7 +23,6 @@ public class AnimManager : MonoBehaviour
     [SerializeField] private GameObject circleCrosshair;
 
     [SerializeField] private float slowMultiplier;
-    [SerializeField] private float animationTime;
 
     [SerializeField] private TMP_Text enemiesText;
 
@@ -34,6 +34,7 @@ public class AnimManager : MonoBehaviour
 
     [SerializeField] private Camera itemCamera;
 
+    [SerializeField] private float timeAfterVictory;
     [SerializeField] private float itemCameraTime = 5f;
 
     private List<EnemyBasic> spawnedEnemies = new List<EnemyBasic>();
@@ -82,7 +83,7 @@ public class AnimManager : MonoBehaviour
         circleCrosshair.SetActive(false);
 
         playerMovement.LockOrNotMovement(false);
-        uiManager.ChangeUI();
+        uiManager.HideDef();
 
         mainCamera.gameObject.SetActive(false);
 
@@ -109,7 +110,7 @@ public class AnimManager : MonoBehaviour
                 mainCamera.gameObject.SetActive(true);
 
                 playerMovement.LockOrNotMovement(true);
-                uiManager.ChangeUI();
+                uiManager.ShowDef();
             }
         }
     }
@@ -135,11 +136,7 @@ public class AnimManager : MonoBehaviour
                 }
                 else
                 {
-                    spawnEnemies.Spawn(
-                        aimDots[i],
-                        enemyToSpawn,
-                        time
-                    );
+                    spawnEnemies.Spawn(aimDots[i], enemyToSpawn, time);
                 }
 
                 spawnedEnemies.Add(enemyToSpawn);
@@ -170,11 +167,7 @@ public class AnimManager : MonoBehaviour
                 }
                 else
                 {
-                    spawnEnemies.Spawn(
-                        aimDots[i],
-                        enemyToSpawn,
-                        time
-                    );
+                    spawnEnemies.Spawn(aimDots[i], enemyToSpawn, time);
                 }
             }
         }
@@ -209,7 +202,7 @@ public class AnimManager : MonoBehaviour
         {
             levelCompleted = true;
 
-            LevelComplete();
+            StartCoroutine(WaitForSeconds(timeAfterVictory));
         }
     }
 
@@ -250,8 +243,11 @@ public class AnimManager : MonoBehaviour
 
         if (mainCamera != null)
         {
+            Debug.Log("alo");
             mainCamera.gameObject.SetActive(false);
-            uiManager.ChangeUI();
+            uiManager.HideDef();
+            animator.SetBool("isAiming", false);
+            animator.SetBool("isShooting", false);
         }
 
         foreach (Camera cam in cameras)
@@ -271,9 +267,14 @@ public class AnimManager : MonoBehaviour
         if (mainCamera != null)
         {
             mainCamera.gameObject.SetActive(true);
-            uiManager.ChangeUI();
+            uiManager.ShowDef();
             playerMovement.LockOrNotMovement(true);
         }
+    }
+    private IEnumerator WaitForSeconds(float seconds)
+    {
+        yield return new WaitForSeconds(seconds);
+        LevelComplete();
     }
 
     private void UpdateEnemiesText()

@@ -40,7 +40,7 @@ private bool playerNear = false;
             isOpen = !isOpen;
             isMoving = true;
 
-            animator.SetBool("Open", isOpen);
+            animator.SetBool("open", isOpen);
 
             openText.SetActive(false);
 

@@ -109,9 +109,13 @@ public class UIManager : MonoBehaviour
         ammoCircle.DOFade(1f, 1f);
         ammoCircleBack.DOFade(1f, 1f);
     }
-    public void ChangeUI()
+    public void HideDef()
     {
-        defPanel.SetActive(!defPanel.activeSelf);
+        defPanel.SetActive(false);
+    }
+    public void ShowDef()
+    {
+        defPanel.SetActive(true);
     }
     public void LeaveGame()
     {

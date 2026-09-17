@@ -13,17 +13,52 @@ public class WeaponChanger : MonoBehaviour
 
     private Animator animator;
 
+    private bool canChange = true;
+    private bool prevCanChange = true;
+
+    public bool CanChange { get => canChange; set => canChange = value; }
+
     private void Start()
     {
         animator = gameObject.GetComponent<Animator>();
     }
+    //private void Update()
+    //{
+    //    if (!canChange)
+    //    {
+    //        HideUI();
+    //    }
+    //    if (Input.GetMouseButtonDown(2) && animator.GetBool("onLand") && !uiManager.DeadPanel.activeSelf && canChange)
+    //    {
+    //        ShowUI();
+    //    }
+    //    if (Input.GetMouseButtonUp(2) && !uiManager.DeadPanel.activeSelf && canChange)
+    //    {
+    //        foreach (var uiRegister in uiRegisters)
+    //        {
+    //            if (uiRegister.IsHovered)
+    //            {
+    //                uiRegister.PressButton();
+    //                break;
+    //            }
+    //        }
+    //        HideUI();
+    //    }
+    //}
+
     private void Update()
     {
-        if (Input.GetMouseButtonDown(2) && animator.GetBool("onLand") && !uiManager.DeadPanel.activeSelf)
+        if (!canChange && prevCanChange)
+        {
+            HideUI();
+        }
+        prevCanChange = canChange;
+
+        if (Input.GetMouseButtonDown(2) && animator.GetBool("onLand") && !uiManager.DeadPanel.activeSelf && canChange)
         {
             ShowUI();
         }
-        if (Input.GetMouseButtonUp(2) && !uiManager.DeadPanel.activeSelf)
+        if (Input.GetMouseButtonUp(2) && !uiManager.DeadPanel.activeSelf && canChange)
         {
             foreach (var uiRegister in uiRegisters)
             {
@@ -34,6 +69,7 @@ public class WeaponChanger : MonoBehaviour
                 }
             }
             HideUI();
+            mainPanel.SetActive(true);
         }
     }
     public void ShowUI()
@@ -51,7 +87,6 @@ public class WeaponChanger : MonoBehaviour
         Cursor.visible = false;
 
         cameraMove.CanRotate = true;
-        mainPanel.SetActive(true);
         weaponPanel.SetActive(false);
     }
     public void ChangeWeapon(int number) // 0 - up, 1 - right, 2 - down, 3 - left

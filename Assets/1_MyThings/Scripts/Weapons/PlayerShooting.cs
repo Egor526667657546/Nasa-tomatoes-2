@@ -127,7 +127,7 @@ public class PlayerShooting : MonoBehaviour
                 {
                     if (Input.GetMouseButton(0) && shotCooldownTimer <= 0 && !isReloading)
                         RifleShooting();
-                    else if (Input.GetMouseButtonUp(0) || movement.MovementType == 2)
+                    else if (Input.GetMouseButtonUp(0))
                         StartCoroutine(DelayBeforeQuitting(false));
                 }
                 else if (weaponData.type == "Pistol")
@@ -247,8 +247,8 @@ public class PlayerShooting : MonoBehaviour
 
         //Debug.Log($"cartridges: {cartridges - 1}");
 
-        Fire();
         animator.SetBool("isShooting", true);
+        Fire();
     }
     private void PistolShooting()
     {

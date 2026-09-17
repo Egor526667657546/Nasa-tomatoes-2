@@ -16,7 +16,7 @@ public class Laser : MonoBehaviour
     private void ShootLaser()
     {
         RaycastHit hit;
-        if (Physics.Raycast(gameObject.transform.position, gameObject.transform.forward, out hit, 30f, layer))
+        if (Physics.Raycast(gameObject.transform.position, gameObject.transform.forward, out hit, 11.5f, layer))
         {
             animManager.StartAnim();
             canAnim = false;
