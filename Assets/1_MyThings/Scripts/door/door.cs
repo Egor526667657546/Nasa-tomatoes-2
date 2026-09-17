@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class Door : MonoBehaviour
 {
+    [SerializeField] private AnimManager animManager;
     public Animator animator;
 
     private bool levelCompleted = false;
@@ -13,6 +14,7 @@ public class Door : MonoBehaviour
             if (!levelCompleted)
             {
                 animator.SetBool("open", true);
+                animManager.StartAnim();
             }
         }
     }
