@@ -55,6 +55,7 @@ public class Spread : MonoBehaviour
 
     public Quaternion CalculateSpread(int movementType) // 0 - idle, 1 - walk, 2 - jump
     {
+        Debug.Log($"CalculateSpread call. type={movementType}, idle={currentIdleSpread:F2}, move={currentMoveSpread:F2}, jump={currentJumpSpread:F2}, dt={Time.deltaTime:F4}");
         restoreTimer = restoreDelay;
         float xSpread = 0f;
         float ySpread = 0f;

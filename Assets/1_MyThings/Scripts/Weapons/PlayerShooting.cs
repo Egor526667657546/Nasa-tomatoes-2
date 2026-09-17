@@ -26,6 +26,8 @@ public class PlayerShooting : MonoBehaviour
     private GameObject usingWeapon;
     private List<string> types;
 
+    private bool canShoot = true;
+
     private int pistolCartriges = -1;
     private int akCartriges = -1;
     private int laserCartriges = -1;
@@ -40,6 +42,9 @@ public class PlayerShooting : MonoBehaviour
     private bool inSomething = false;
     private float shotCooldownTimer = 0f;
     private float N = 0f;
+
+
+    public bool CanShoot { get => canShoot; set => canShoot = value; }
 
     public bool HasGun { get => hasGun; set => hasGun = value; }
 
@@ -107,43 +112,46 @@ public class PlayerShooting : MonoBehaviour
         //{
         //    Waiting();
         //}
-        if (shotCooldownTimer > 0)
+        if (CanShoot)
         {
-            shotCooldownTimer -= Time.deltaTime;
-        }
-
-        bool aimingWithGunNow = hasGun && isAiming;
-
-        if (aimingWithGunNow)
-        {
-            if (weaponData.type == "Rifle")
+            if (shotCooldownTimer > 0)
             {
-                if (Input.GetMouseButton(0) && shotCooldownTimer <= 0 && !isReloading)
-                    RifleShooting();
-                else if (Input.GetMouseButtonUp(0) || movement.MovementType == 2)
-                    StartCoroutine(DelayBeforeQuitting(false));
+                shotCooldownTimer -= Time.deltaTime;
             }
-            else if (weaponData.type == "Pistol")
-            {
-                if (Input.GetMouseButtonDown(0) && shotCooldownTimer <= 0 && !isReloading)
-                    PistolShooting();
-            }
-        }
-        else if (wasAimingWithGun && usingWeapon != null)
-        {
-            StartCoroutine(DelayBeforeQuitting(true));
-        }
 
-        wasAimingWithGun = aimingWithGunNow;
+            bool aimingWithGunNow = hasGun && isAiming;
 
-        if (weaponData != null)
-        {
-            if (!ammoActivated)
+            if (aimingWithGunNow)
             {
-                ammoActivated = true;
-                uiManager.ShowAmmo();
+                if (weaponData.type == "Rifle")
+                {
+                    if (Input.GetMouseButton(0) && shotCooldownTimer <= 0 && !isReloading)
+                        RifleShooting();
+                    else if (Input.GetMouseButtonUp(0))
+                        StartCoroutine(DelayBeforeQuitting(false));
+                }
+                else if (weaponData.type == "Pistol")
+                {
+                    if (Input.GetMouseButtonDown(0) && shotCooldownTimer <= 0 && !isReloading)
+                        PistolShooting();
+                }
             }
-            UpdateAmmo();
+            else if (wasAimingWithGun && usingWeapon != null)
+            {
+                StartCoroutine(DelayBeforeQuitting(true));
+            }
+
+            wasAimingWithGun = aimingWithGunNow;
+
+            if (weaponData != null)
+            {
+                if (!ammoActivated)
+                {
+                    ammoActivated = true;
+                    uiManager.ShowAmmo();
+                }
+                UpdateAmmo();
+            }
         }
     }
     private void LateUpdate()
@@ -239,8 +247,8 @@ public class PlayerShooting : MonoBehaviour
 
         //Debug.Log($"cartridges: {cartridges - 1}");
 
-        Fire();
         animator.SetBool("isShooting", true);
+        Fire();
     }
     private void PistolShooting()
     {

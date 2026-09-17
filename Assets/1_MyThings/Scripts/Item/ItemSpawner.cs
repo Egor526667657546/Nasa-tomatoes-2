@@ -7,14 +7,10 @@ public class ItemSpawner : MonoBehaviour
 
     public void SpawnItem()
     {
-        if (item != null)
-        {
-            item.SetActive(true);
-        }
+        if (item == null || itemAnimator == null)
+            return;
 
-        if (itemAnimator != null)
-        {
-            itemAnimator.Play(0);
-        }
+        item.SetActive(true);
+        itemAnimator.SetTrigger("Start");
     }
 }

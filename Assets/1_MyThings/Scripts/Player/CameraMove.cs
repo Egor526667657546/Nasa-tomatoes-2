@@ -11,6 +11,8 @@ public class CameraMove : MonoBehaviour
     public static Action OnPause;
 
     private bool canRotate = true;
+    private bool canRotateUI = true;
+
     private float camRotCeiling = -30f;
     private float camRotFloor = 55f;
     private float axisCamera;
@@ -20,9 +22,10 @@ public class CameraMove : MonoBehaviour
         get => axisCamera;
     }
 
+    public bool CanRotate { get => canRotate; set => canRotate = value; }
+
     public float CamRotCeiling { get => camRotCeiling; set => camRotCeiling = value; }
     public float CamRotFloor { get => camRotFloor; set => camRotFloor = value; }
-    public bool CanRotate { get => canRotate; set => canRotate = value; }
 
     private void Start()
     {
@@ -32,7 +35,7 @@ public class CameraMove : MonoBehaviour
 
     void Update()
     {
-        if (CanRotate)
+        if (canRotateUI && canRotate)
         {
             RotateCamera();
         }
@@ -52,7 +55,7 @@ public class CameraMove : MonoBehaviour
 
     private void ChangeRotation()
     {
-        CanRotate = !CanRotate;
+        canRotateUI = !canRotateUI;
     }
 
     private void OnDestroy()
